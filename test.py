@@ -1,36 +1,37 @@
-import serial
+import serial, keyboard
 import time
 
 #The following line is for serial over GPIO
-port = 'COM9' # note I'm using Mac OS-X
+port = 'COM10' # note I'm using Mac OS-X
 
 
 ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2) # wait for Arduino
 
-i = 0
-
-while (i < 50):
-    # Serial write section
-
-    setTempCar1 = 63
-    setTempCar2 = 37
+def key_2_sent(key):
+    key_2_sent = str(key)
     ard.flush()
-    setTemp1 = str(setTempCar1)
-    setTemp2 = str(setTempCar2)
-    print ("Python value sent: ")
-    print (setTemp1)
-    ard.flushInput()
-    ard.flushOutput()
-    ard.write(str.encode(setTemp1))
-    time.sleep(1) # I shortened this to match the new value in your Arduino code
+    print ("Python value sent: " + key_2_sent)
+    ard.write(str.encode(key_2_sent))
+    time.sleep(0.5) # I shortened this to match the new value in your Arduino code
+    # wating for promicro to send 'Done'
+    done_received = False
+    while not done_received:
+        original_msg = str(ard.read(ard.inWaiting())) # read all characters in buffer
+        msg = original_msg.replace('b\'', '').replace('\\r\\n', "   ")[:-2]
+        print(msg[0:4])
+        if msg[0:4] == 'Done':
+            print ("Message from arduino: ")
+            print (msg)
+            done_received = True
+        else:
+            ard.flush()
+            time.sleep(0.3)
+    return
 
-    # Serial read section
-    original_msg = str(ard.read(ard.inWaiting())) # read all characters in buffer
-    msg =original_msg.replace('b\'', '').replace('\\r\\n', "   ")[:-2]
-    print ("Message from arduino: ")
-    print (msg)
-    i = i + 1
-else:
-    serial.Serial(port, 9600).close()
-    print("Exiting")
+while not keyboard.is_pressed('ctrl'):
+    pass
+time.sleep(1)
+for i in "abcdefghijklmnopqrstuvWXYZ!":
+    key_2_sent(i)
+
