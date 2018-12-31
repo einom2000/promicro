@@ -164,7 +164,25 @@ while baby_level < 25:
     # battle loop start
     battle_is_running = True
     logging.info('battle start!')
+    i = 0
+    case = 0
     while battle_is_running:
+        key_2_sent(str(battle_action[i]))
+        time.sleep(random.randint(8, 12) / 10)
+        end_time = time.time() + 60
+        while time.time() <= end_time:
+            if is_round_end():
+                case = 1
+                break
+            if is_dead_choose:
+                case = 2
+                break
+            if not vs_image:
+                case = 3
+                break
+        case1:
+        case2:
+        case3:
 
 
 
