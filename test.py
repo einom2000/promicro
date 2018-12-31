@@ -85,6 +85,8 @@ check_image = {'level23': 'level23.png',
                'deadchoose': 'deadchoose.png',
                'revival': 'revival.png'
                }
+check_cord = {'level_check_box': (320, 320, 350, 350)
+              }
 
 # set wow window to up_left
 find_wow_window()
@@ -99,7 +101,8 @@ logging.info('ctrl key was pressed, loop begins!')
 baby_level = 0
 key_2_sent('p')  # p is the pet info short_key
 for i in range(23, 26):
-    if found_level(check_image.get('level' + str(i)), (320, 320, 350, 350)) is not None:
+    if found_level(check_image.get('level' + str(i)),
+                   check_cord.get('level_check_box')) is not None:
         baby_level = i
         break
 logging.info("checking: baby level is " + str(baby_level))
