@@ -1,14 +1,13 @@
 import serial, keyboard, sys
 import win32api, win32gui, winsound
 import time, random, pyautogui
-import winshell, psutil
 import logging, json
-import cv2
 from datetime import datetime
+
 # P is for pet setting window
 # F1 search the pet boss
 # F2 search the the mob
-# F3 revial key
+# F3 revival key
 # level of the first baby (329,328)(340,340)
 # vs image (627, 44)(668, 69)
 # round_end image (544, 695) (582, 736)
@@ -25,13 +24,33 @@ logging.basicConfig(filename='leveling.log',
                     )
 logging.info('Program starts!')
 
-def loadbattle(enemy, last_revival_time):
+
+def is_round_end():
+    fd = pyautogui.locateOnScreen(check_image.get('round_end'),
+                                  region=check_cord.get('round_end'))
+    return fd
+
+def is_revivaled(last_time):
+    if time.time() - last_time >= 480:
+        key_2_sent('f3')
+        time.sleep(random.randint(3, 5) / 10)
+        return True
+
+
+def load_battle(enemy):
     key_2_sent(enemy)
     time.sleep(random.randint(5, 9) / 10)
     key_2_sent('y')  # y is the start battle key
     time.sleep(random.randint(15, 20) / 10)
-    fd = pyautogui.locateOnScreen(check_image.get('vs_image'), )
-    pass
+    end_time = time.time() + 60 * 1
+    fd = None
+    while time.time() < end_time:
+        fd = pyautogui.locateOnScreen(check_image.get('vs_image'),
+                                      region=check_cord.get('vs_image'))
+        if fd is not None:
+            break
+    return fd
+
 
 def find_wow_window():
     while True:
@@ -47,16 +66,16 @@ def find_wow_window():
 
 
 def found_level(level_img, position):
-    found_level = pyautogui.locateCenterOnScreen(level_img,
-                                                 region=position)
-    return found_level
+    fd = pyautogui.locateCenterOnScreen(level_img,
+                                        region=position)
+    return fd
 
 
 def key_2_sent(key):
-    key_2_sent = str(key)
+    key_sent = str(key)
     ard.flush()
-    print ("Python value sent: " + key_2_sent)
-    ard.write(str.encode(key_2_sent))
+    print ("Python value sent: " + key_sent)
+    ard.write(str.encode(key_sent))
     time.sleep(0.5) # I shortened this to match the new value in your Arduino code
     # waiting for pro micro to send 'Done'
     done_received = False
@@ -73,20 +92,26 @@ def key_2_sent(key):
             time.sleep(0.3)
     return
 
+
 # game parameters setup
-port = 'COM10' # note I'm using Mac OS-X
+port = 'COM10'  # note I'm using Mac OS-X
 ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2) # wait for Arduino
 check_image = {'level23': 'level23.png',
                'level24': 'level24.png',
                'level25': 'level25.png',
                'vs_image': 'vs_image.png',
-               'roundend': 'roundend.png',
-               'deadchoose': 'deadchoose.png',
+               'round_end': 'round_end.png',
+               'dead_choose': 'dead_choose.png',
                'revival': 'revival.png'
                }
-check_cord = {'level_check_box': (320, 320, 350, 350)
+check_cord = {'level_check_box': (320, 320, 350, 350),
+              'vs_image': (620, 40, 680, 80),
+              'round_end': (530, 710, 600, 750),
+              'dead_choose': (370, 680, 580, 750)
               }
+
+battle_action = (1, 4, 2, 2, 1, 2, 4, 3, 1, 3, 4, 2)
 
 # set wow window to up_left
 find_wow_window()
@@ -110,28 +135,38 @@ time.sleep(random.randint(5, 7) / 10)
 key_2_sent('p')  # to close pet info window
 
 # mainloop start
-last_revial_time = time.time()
+last_revival_time = time.time()
 while baby_level < 25:
-    # every 8 minutes to do the revial
-    if time.time() - last_revial_time >= 480:
-        key_2_sent('f3')
-        time.sleep(random.randint(3, 5) / 10)
-        last_revial_time = time.time()
+    # every 8 minutes to do the revival
+    if is_revivaled(last_revival_time):
+        last_revival_time = time.time()
 
-    loadbattle('f2', last_revial_time())
+    #loading battle
+    battle_loaded = False
+    while not battle_loaded:
+        ld_battle = load_battle('f2')
+        if ld_battle is not None:
+            battle_loaded = True
+        else:
+            ld_battle = load_battle('f1')
+            if ld_battle is not None:
+                battle_loaded = True
+            else:
+                # wait for revival
+                sleep_time = 480 - (time.time() - last_revival_time)
+                if sleep_time >= 10:
+                    logging.info('all dead! sleep ' +
+                                 str(sleep_time) + ' seconds to revival.')
+                    time.sleep(sleep_time)
+                while not is_revivaled(last_revival_time):
+                    pass
+
+    # battle loop start
+    battle_is_running = True
+    logging.info('battle start!')
+    while battle_is_running:
 
 
 
 
-
-
-
-
-
-#     # check if all the team members are alive, if not, wait for a revival
-#     # check if the baby's level is less than 24, if not, change to a next baby
-#     # cast macro to get the target
-#     # react with the target
-#     # wait and check the pbattle feature shown
-#     # battle loop start
-#     # loop unless the win feature shown
+# loop unless the win feature shown
