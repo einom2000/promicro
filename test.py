@@ -29,37 +29,26 @@ logging.basicConfig(filename='leveling.log',
 logging.info('Program starts!')
 
 
-def is_round_end():
-    fd = pyautogui.locateOnScreen(check_image.get('round_end'),
-                                  region=check_cord.get('round_end'))
+def is_it_found(key):
+    fd = pyautogui.locateOnScreen(check_image.get(key),
+                                  region=check_cord.get(key))
     return fd
 
-def is_dead_choose():
-    fd = pyautogui.locateOnScreen(check_image.get('dead_choose'),
-                                  region=check_cord.get('dead_choose'))
-    return fd
 
-def is_vs_found():
-    fd = pyautogui.locateOnScreen(check_image.get('vs_image'),
-                                  region=check_cord.get('vs_image'))
-    return fd
-
-def is_revivaled(last_time):
-    if time.time() - last_time >= 480:
-        key_2_sent('c')
-        time.sleep(random.randint(3, 5) / 10)
-        return True
+def sleep(millisecond1, millisecond2):
+    time.sleep(random.randint(millisecond1 // 10, millisecond2 // 10) / 100)
+    return
 
 
 def load_battle(enemy):
     key_2_sent(enemy)
-    time.sleep(random.randint(5, 9) / 10)
+    sleep(500, 900)
     key_2_sent('y')  # y is the start battle key
-    time.sleep(random.randint(15, 20) / 10)
-    end_time = time.time() + 60 * 1
+    sleep(1500, 2000)
+    end = time.time() + 60 * 1
     fd = None
-    while time.time() < end_time:
-        fd = is_vs_found()
+    while time.time() < end:
+        fd = is_it_found('vs_image')
         if fd is not None:
             break
     return fd
@@ -89,7 +78,7 @@ def key_2_sent(key):
     ard.flush()
     print ("Python value sent: " + key_sent)
     ard.write(str.encode(key_sent))
-    time.sleep(0.5) # I shortened this to match the new value in your Arduino code
+    time.sleep(0.5) # I shortened this to match the new value in your arduino code
     # waiting for pro micro to send 'Done'
     done_received = False
     while not done_received:
@@ -109,23 +98,32 @@ def key_2_sent(key):
 # game parameters setup
 port = 'COM10'  # note I'm using Mac OS-X
 ard = serial.Serial(port, 9600, timeout=5)
-time.sleep(2) # wait for Arduino
+time.sleep(2) # wait for arduino
+
 check_image = {'level23': 'level23.png',
                'level24': 'level24.png',
                'level25': 'level25.png',
                'vs_image': 'vs_image.png',
                'round_end': 'round_end.png',
                'dead_choose': 'dead_choose.png',
-               'revival_c': 'revival_c_key.png'
+               'revival_c_key': 'revival_c_key.png',
+               'black_teeth_2': 'black_teeth_2.png',
+               'black_teeth_3': 'black_teeth_3.png',
+               'rush_3': 'rush_3.png'
                }
 check_cord = {'level_check_box': (320, 320, 350, 350),
               'vs_image': (620, 40, 680, 80),
               'round_end': (530, 710, 600, 750),
               'dead_choose': (370, 680, 580, 750),
-              'revival_c': (270, 650, 300, 690)
+              'revival_c_key': (270, 650, 300, 690),
+              'black_teeth_2':  (430, 685, 480, 740),
+              'black_teeth_3': (490, 685, 535, 740),
+              'rush_3': (370, 680, 420, 735)
               }
-
-battle_action = (1, 4, 2, 2, 1, 4, 3, 3, 1, 4, 2, 3, 1, 4, 3, 3, 1)
+battle_action = {1: (1, 0),
+                 2: (2, 1),
+                 3: (3, 1)
+                 }
 
 # set wow window to up_left
 find_wow_window()
@@ -145,14 +143,17 @@ for i in range(23, 26):
         baby_level = i
         break
 logging.info("checking: baby level is " + str(baby_level))
-time.sleep(random.randint(5, 7) / 10)
+sleep(500, 700)
 key_2_sent('p')  # to close pet info window
+sleep(600, 900)
 
 # mainloop start
 last_revival_time = time.time()
 while baby_level < 25:
-    # every 8 minutes to do the revival
-    if is_revivaled(last_revival_time):
+    # if revival key is ready to do the revival after at least 5 minutes
+    if time.time() - last_revival_time >= 400 and is_it_found('revival_c_key'):
+        key_2_sent('c')
+        sleep(500, 900)
         last_revival_time = time.time()
 
     #loading battle
@@ -167,35 +168,52 @@ while baby_level < 25:
                 battle_loaded = True
             else:
                 # wait for revival
-                sleep_time = 480 - (time.time() - last_revival_time)
+                sleep_time = 480 - (time.time() - last_revival_time) - 10
                 if sleep_time >= 10:
                     logging.info('all dead! sleep ' +
                                  str(sleep_time) + ' seconds to revival.')
                     time.sleep(sleep_time)
-                while not is_revivaled(last_revival_time):
+                while not is_it_found('revival_c_key'):
                     pass
+                key_2_sent('c')
+                sleep(500, 900)
+
 
     # battle loop start
     battle_is_running = True
     logging.info('battle start!')
-    i = 0
-    case = 0
+    pets_lives = {1:'alive',
+                  2:'alive',
+                  3:'alive'}
+    current_pet = 1
     while battle_is_running:
-        key_2_sent(str(battle_action[i]))
-        time.sleep(random.randint(8, 12) / 10)
-        end_time = time.time() + 60
-        while time.time() <= end_time:4
-            if is_round_end():
-                case = 1
-                break
-            if is_dead_choose:
-                case = 2
-                break
-            if not is_vs_found():
-                case = 3
-                break
-    sys.exit()
+        if current_pet == 1:
+            key_2_sent(str(battle_action.get(1)[0]))
+            while not is_it_found('round_end'):
+                pass
+            key_2_sent('4')
+            sleep(200, 500)
+            # now in the pet picking menu
+            logging.info('from 1st pet to 2nd pet')
+            key_2_sent('2')
+            current_pet = 2
+            sleep(400, 600)
+            if not is_it_found('black_teeth_2'):
+                logging.info('pick 2nd pet failed try 3rd pet')
+                pets_lives[2] = 'dead'
+                key_2_sent('3')
+                current_pet = 3
+                sleep(400, 600)
+                if not is_it_found('black_teeth_3'):
+                    logging.info('only 1st pet available back to 1st')
+                    pets_lives[3] = 'dead'
+                    key_2_sent('1')
+                    current_pet = 0
+                    sleep(300, 500)
 
+        if current_pet == 2 and pets_lives.get(2) == 'alive'\
+                and is_it_found('vs_image'):
+            key_2_sent('2')
 
 
 
