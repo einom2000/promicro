@@ -5,14 +5,18 @@ import logging, json
 from datetime import datetime
 
 # P is for pet setting window
-# F1 search the pet boss
-# F2 search the the mob
-# F3 revival key
+# z search the pet boss
+# x search the the mob
+# c revival key
 # level of the first baby (329,328)(340,340)
 # vs image (627, 44)(668, 69)
 # round_end image (544, 695) (582, 736)
 # dead_choose image (399, 697)(558, 733)
 # revival button image (642, 71)(677, 109))
+# revival c key button image (274, 657) (299, 687)
+# black_teeth_2.png (432, 685)(481, 737)
+# black_teeth_3.png (490, 687) (535, 734)
+# rush_3.png (373, 687) (419, 735)
 #  1,4,2,2,1,2,4,3,1,3,4,2,...
 # add keyboard.release(all) in arduino
 
@@ -30,9 +34,19 @@ def is_round_end():
                                   region=check_cord.get('round_end'))
     return fd
 
+def is_dead_choose():
+    fd = pyautogui.locateOnScreen(check_image.get('dead_choose'),
+                                  region=check_cord.get('dead_choose'))
+    return fd
+
+def is_vs_found():
+    fd = pyautogui.locateOnScreen(check_image.get('vs_image'),
+                                  region=check_cord.get('vs_image'))
+    return fd
+
 def is_revivaled(last_time):
     if time.time() - last_time >= 480:
-        key_2_sent('f3')
+        key_2_sent('c')
         time.sleep(random.randint(3, 5) / 10)
         return True
 
@@ -45,8 +59,7 @@ def load_battle(enemy):
     end_time = time.time() + 60 * 1
     fd = None
     while time.time() < end_time:
-        fd = pyautogui.locateOnScreen(check_image.get('vs_image'),
-                                      region=check_cord.get('vs_image'))
+        fd = is_vs_found()
         if fd is not None:
             break
     return fd
@@ -103,15 +116,16 @@ check_image = {'level23': 'level23.png',
                'vs_image': 'vs_image.png',
                'round_end': 'round_end.png',
                'dead_choose': 'dead_choose.png',
-               'revival': 'revival.png'
+               'revival_c': 'revival_c_key.png'
                }
 check_cord = {'level_check_box': (320, 320, 350, 350),
               'vs_image': (620, 40, 680, 80),
               'round_end': (530, 710, 600, 750),
-              'dead_choose': (370, 680, 580, 750)
+              'dead_choose': (370, 680, 580, 750),
+              'revival_c': (270, 650, 300, 690)
               }
 
-battle_action = (1, 4, 2, 2, 1, 2, 4, 3, 1, 3, 4, 2)
+battle_action = (1, 4, 2, 2, 1, 4, 3, 3, 1, 4, 2, 3, 1, 4, 3, 3, 1)
 
 # set wow window to up_left
 find_wow_window()
@@ -144,11 +158,11 @@ while baby_level < 25:
     #loading battle
     battle_loaded = False
     while not battle_loaded:
-        ld_battle = load_battle('f2')
+        ld_battle = load_battle('x')
         if ld_battle is not None:
             battle_loaded = True
         else:
-            ld_battle = load_battle('f1')
+            ld_battle = load_battle('z')
             if ld_battle is not None:
                 battle_loaded = True
             else:
@@ -170,19 +184,18 @@ while baby_level < 25:
         key_2_sent(str(battle_action[i]))
         time.sleep(random.randint(8, 12) / 10)
         end_time = time.time() + 60
-        while time.time() <= end_time:
+        while time.time() <= end_time:4
             if is_round_end():
                 case = 1
                 break
             if is_dead_choose:
                 case = 2
                 break
-            if not vs_image:
+            if not is_vs_found():
                 case = 3
                 break
-        case1:
-        case2:
-        case3:
+    sys.exit()
+
 
 
 
