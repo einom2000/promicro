@@ -7,4 +7,3 @@ while True:
         print(pyautogui.position())
         last_position = pyautogui.position()
 
-
