@@ -30,6 +30,16 @@ logging.basicConfig(filename='leveling.log',
 logging.info('Program starts!')
 
 
+def pet_check():
+    if is_it_found('black_teeth_2'):
+        return 2
+    elif is_it_found('black_teeth_3'):
+        return 3
+    else:
+        return 1
+
+
+
 def check_level():
     bb_level = 0
     key_2_sent('p')  # p is the pet info short_key
@@ -129,6 +139,71 @@ def key_2_sent(key):
     return
 
 
+def master_action(pet_num):
+    sleep(300, 500)
+    next_pet_num = pet_num % 2 * (-1) + 3
+    if pet_num == 2 and pets_lives.get(pet_num) == 'alive' and pet_check() == pet_num:
+        key_2_sent(str(battle_action.get(pet_num)[0]))
+        sleep(8000, 9000)
+        result = check_for_attack_result()
+        print('current pet = ' + str(pet_num))
+        print('result= ' + str(result))
+        if result == 0:
+            logging.info('No. ' + str(pet_num) + ' pet was killed!')
+            pets_lives[pet_num] = 'dead'
+            if pets_lives.get(next_pet_num) == 'alive':
+                key_2_sent(str(next_pet_num))  # change to 3rd or 2nd pet
+                pet_num = next_pet_num
+                sleep(7000, 8000)
+            else:
+                key_2_sent('6')  # yield
+                sleep(1200, 1600)
+                key_2_sent('v')
+                logging.info('both 2nd and 3rd were killed, yielding')
+                sleep(2000, 3000)
+                pet_num = -1
+        elif result == -1:
+            sleep(2000, 3000)
+            pet_num = -1
+        elif result == 1:
+            sleep(2000, 3000)
+            if is_it_found('rush_3'):
+                key_2_sent(str(battle_action.get(pet_num)[1]))
+            else:
+                key_2_sent(str(battle_action.get(pet_num)[2]))
+            sleep(13000, 15000)
+            result = check_for_attack_result()
+            if result == 0:
+                logging.info('No. ' + str(pet_num) + ' pet was killed!')
+                pets_lives[pet_num] = 'dead'
+                if pets_lives.get(next_pet_num) == 'alive':
+                    key_2_sent(str(next_pet_num))  # change to 3rd pet
+                    pet_num = next_pet_num
+                    sleep(7000, 8000)
+                else:
+                    key_2_sent('6')  # yield
+                    sleep(1200, 1600)
+                    key_2_sent('v')
+                    logging.info('both 2nd and 3rd were killed, yielding')
+                    sleep(2000, 3000)
+                    pet_num = -1
+            elif result == -1:
+                sleep(2000, 3000)
+                pet_num= -1
+            elif result == 1:
+                key_2_sent('4')
+                sleep(5000, 6000)
+                if pets_lives.get(next_pet_num) == 'alive':
+                    key_2_sent(str(next_pet_num))
+                    pet_num = next_pet_num
+                    sleep(7000, 8000)
+                elif pets_lives.get(1) == 'alive':
+                     key_2_sent('1')
+                     pet_num = 1
+                     sleep(7000, 8000)
+    return pet_num
+
+
 # game parameters setup
 port = 'COM10'  # note I'm using Mac OS-X
 ard = serial.Serial(port, 9600, timeout=5)
@@ -155,8 +230,8 @@ check_cord = {'level_check_box': (320, 320, 350, 350),
               'rush_3': (370, 680, 420, 735)
               }
 battle_action = {1: (1, 0),
-                 2: (2, 1),
-                 3: (3, 1)
+                 2: (2, 1, 3),
+                 3: (3, 1, 2)
                  }
 
 # set wow window to up_left
@@ -176,7 +251,9 @@ baby_level = check_level()
 last_revival_time = time.time()
 
 while baby_level < 25:
+
     current_pet = 1
+
     # if revival key is ready to do the revival after at least 5 minutes
     if time.time() - last_revival_time >= 420:
         while not is_it_found('revival_c_key'): # not all dead but time is ok for it
@@ -210,15 +287,15 @@ while baby_level < 25:
     # battle loop start
     battle_is_running = True
     logging.info('battle start!')
-    sleep(6000, 8000)
+    sleep(8000, 9000)
     pets_lives = {1: 'alive',
                   2: 'alive',
                   3: 'alive'}
 
     battle_time = time.time()
-    last_pet = 3   # incase 2 other are dead
+
     while battle_is_running:
-        if current_pet == 1 and pets_lives.get(1) == 'alive':
+        if current_pet == 1 and pets_lives.get(1) == 'alive' and pet_check() == 1:
             key_2_sent(str(battle_action.get(1)[0]))
             sleep(8000, 9000)
             result = check_for_attack_result()
@@ -262,150 +339,19 @@ while baby_level < 25:
                         sleep(2000, 3000)
                         current_pet = -1
                         battle_is_running = False
-        sleep(300, 500)
-        if current_pet == 2 and pets_lives.get(2) == 'alive':
-            key_2_sent(str(battle_action.get(2)[0]))
-            sleep(8000, 9000)
-            result = check_for_attack_result()
-            print('current pet = ' + str(current_pet))
-            print('result= ' + str(result))
-            if result == 0:
-                logging.info('2nd pets was killed!')
-                pets_lives[2] = 'dead'
-                if pets_lives.get(3) == 'alive':
-                    last_pet = current_pet
-                    key_2_sent('3')  # change to 3rd pet
-                    current_pet = 3
-                    sleep(7000, 8000)
-                else:
-                    key_2_sent('6')  # yield
-                    sleep(1200, 1600)
-                    key_2_sent('v')
-                    logging.info('both 2nd and 3rd were killed, yielding')
-                    sleep(2000, 3000)
-                    current_pet = -1
-                    battle_is_running = False
-            elif result == -1:
-                sleep(2000, 3000)
-                current_pet = -1
-                battle_is_running = False
-            elif result == 1:
-                sleep(2000, 3000)
-                if is_it_found('rush_3'):
-                    key_2_sent(str(battle_action.get(2)[1]))
-                else:
-                    key_2_sent(str(battle_action.get(2)[0]))
-                sleep(13000, 15000)
-                result = check_for_attack_result()
-                if result == 0:
-                    logging.info('2nd pets was killed!')
-                    pets_lives[2] = 'dead'
-                    if pets_lives.get(3) == 'alive':
-                        last_pet = current_pet
-                        key_2_sent('3')  # change to 3rd pet
-                        current_pet = 3
-                        sleep(7000, 8000)
-                    else:
-                        key_2_sent('6')  # yield
-                        sleep(1200, 1600)
-                        key_2_sent('v')
-                        logging.info('both 2nd and 3rd were killed, yielding')
-                        sleep(2000, 3000)
-                        current_pet = -1
-                        battle_is_running = False
-                elif result == -1:
-                    sleep(2000, 3000)
-                    current_pet = -1
-                    battle_is_running = False
-                elif result == 1:
-                    key_2_sent('4')
-                    sleep(5000, 6000)
-                    if pets_lives.get(3) == 'alive':
-                        last_pet = current_pet
-                        key_2_sent('3')
-                        current_pet = 3
-                        sleep(7000, 8000)
-                    elif pets_lives.get(1) == 'alive':
-                        last_pet = current_pet
-                        key_2_sent('1')
-                        current_pet = 1
-                        sleep(7000, 8000)
 
-        sleep(300, 500)
-        if current_pet == 3 and pets_lives.get(3) == 'alive':
-            key_2_sent(str(battle_action.get(3)[0]))
-            sleep(8000, 9000)
-            result = check_for_attack_result()
-            print('current pet = ' + str(current_pet))
-            print('result= ' + str(result))
-            if result == 0:
-                logging.info('3nd pets was killed!')
-                pets_lives[3] = 'dead'
-                if pets_lives.get(2) == 'alive':
-                    last_pet = current_pet
-                    key_2_sent('2')  # change to 3rd pet
-                    current_pet = 2
-                    sleep(7000, 8000)
-                else:
-                    key_2_sent('6')  # yield
-                    sleep(1200, 1600)
-                    key_2_sent('v')
-                    logging.info('both 2nd and 3rd were killed, yielding')
-                    sleep(2000, 3000)
-                    current_pet = -1
-                    battle_is_running = False
-            elif result == -1:
-                sleep(2000, 3000)
-                current_pet = -1
-                battle_is_running = False
-            elif result == 1:
-                sleep(2000, 3000)
-                if is_it_found('rush_3'):
-                    key_2_sent(str(battle_action.get(3)[1]))
-                else:
-                    key_2_sent(str(battle_action.get(3)[0]))
-                sleep(13000, 15000)
-                result = check_for_attack_result()
-                if result == 0:
-                    logging.info('3nd pets was killed!')
-                    pets_lives[3] = 'dead'
-                    if pets_lives.get(2) == 'alive':
-                        last_pet = current_pet
-                        key_2_sent('2')  # change to 3rd pet
-                        current_pet = 2
-                        sleep(7000, 8000)
-                    else:
-                        key_2_sent('6')  # yield
-                        sleep(1200, 1600)
-                        key_2_sent('v')
-                        logging.info('both 2nd and 3rd were killed, yielding')
-                        sleep(2000, 3000)
-                        current_pet = -1
-                        battle_is_running = False
-                elif result == -1:
-                    sleep(2000, 3000)
-                    current_pet = -1
-                    battle_is_running = False
-                elif result == 1:
-                    key_2_sent('4')
-                    sleep(5000, 6000)
-                    if pets_lives.get(2) == 'alive':
-                        last_pet = current_pet
-                        key_2_sent('2')
-                        current_pet = 2
-                        sleep(7000, 8000)
-                    elif pets_lives.get(1) == 'alive':
-                        last_pet = current_pet
-                        key_2_sent('1')
-                        current_pet = 1
-                        sleep(7000, 8000)
+        if current_pet == 1 and pet_check() != 1:
+            pets_lives[1] = 'dead'
+            current_pet = pet_check()
+        # if the assumed pet is not the deck pet, then it is believed dead, and change the assumed pet to the
+        # deck pet.
+        if current_pet == 2:
+            current_pet = master_action(2)
 
-        if last_pet == current_pet:
-            logging.info('only one pet left, let us yielding!')
-            print('only one pet left, let us yielding!')
-            current_pet = -1
+        if current_pet == 3:
+            current_pet = master_action(3)
 
-        if time.time() - battle_time >= 300 :
+        if time.time() - battle_time >= 300:
             logging.info('battle time too long, let us yielding!')
             print('battle time too long, let us yielding!')
             current_pet = -1
