@@ -428,7 +428,7 @@ while baby_level < 25:
         current_pet = 1
         sleep(2000, 3000)
         baby_level = check_level()
-        logging.info('baby level is now ' + baby_level)
+        logging.info('baby level is now ' + str(baby_level))
 
 
 logging.info('baby level up! program end!')
