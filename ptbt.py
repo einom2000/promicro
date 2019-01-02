@@ -39,7 +39,6 @@ def pet_check():
         return 1
 
 
-
 def check_level():
     bb_level = 0
     key_2_sent('p')  # p is the pet info short_key
@@ -189,7 +188,7 @@ def master_action(pet_num):
                     pet_num = -1
             elif result == -1:
                 sleep(2000, 3000)
-                pet_num= -1
+                pet_num = -1
             elif result == 1:
                 key_2_sent('4')
                 sleep(5000, 6000)
@@ -198,16 +197,16 @@ def master_action(pet_num):
                     pet_num = next_pet_num
                     sleep(7000, 8000)
                 elif pets_lives.get(1) == 'alive':
-                     key_2_sent('1')
-                     pet_num = 1
-                     sleep(7000, 8000)
+                    key_2_sent('1')
+                    pet_num = 1
+                    sleep(7000, 8000)
     return pet_num
 
 
 # game parameters setup
 port = 'COM10'  # note I'm using Mac OS-X
 ard = serial.Serial(port, 9600, timeout=5)
-time.sleep(2) # wait for arduino
+time.sleep(2)  # wait for arduino
 
 check_image = {'level23': 'level23.png',
                'level24': 'level24.png',
@@ -262,7 +261,7 @@ while baby_level < 25:
         sleep(500, 900)
         last_revival_time = time.time()
 
-    #loading battle
+    # loading battle
     battle_loaded = False
     while not battle_loaded:
         ld_battle = load_battle('x')
