@@ -332,12 +332,9 @@ while datetime.now().hour != 2:  # end on 02:00 am
                     if not is_it_found('black_teeth_3'):
                         logging.info('only 1st pet available back to 1st')
                         pets_lives[3] = 'dead'
-                        key_2_sent('1')
-                        sleep(2000, 3000)
-                        key_2_sent('6')
-                        sleep(1200, 2000)
-                        key_2_sent('v')                        # yield
-                        sleep(2000, 3000)
+                        while is_it_found('vs_image'):
+                            key_2_sent('1')
+                            sleep(7000, 8000)
                         current_pet = -1
                         battle_is_running = False
 
@@ -352,7 +349,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
         if current_pet == 3:
             current_pet = master_action(3)
 
-        if time.time() - battle_time >= 300:
+        if time.time() - battle_time >= 460:
             logging.info('battle time too long, let us yielding!')
             print('battle time too long, let us yielding!')
             current_pet = -1
