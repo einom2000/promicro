@@ -367,6 +367,8 @@ while datetime.now().hour != 2:  # end on 02:00 am
                 key_2_sent('v')
                 sleep(14000, 16000)
 
+        current_pet = pet_check()
+
     if pets_lives.get(1) == 'dead' or pets_lives.get(2) == 'dead' or pets_lives.get(3) == 'dead':  # all dead
         while not is_it_found('revival_c_key'):
             pass
