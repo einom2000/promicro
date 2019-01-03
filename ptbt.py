@@ -20,6 +20,7 @@ from datetime import datetime
 # black_teeth_3.png (490, 687) (535, 734)
 # rush_3.png (373, 687) (419, 735)
 # add keyboard.release(all) in arduino
+# rematch upleveling team auto
 
 logging.basicConfig(filename='leveling.log',
                     filemode='w',
@@ -249,7 +250,8 @@ baby_level = check_level()
 # mainloop start
 last_revival_time = time.time()
 
-while baby_level < 25:
+# while baby_level < 26:   # rematch auto up-leveling team
+while datetime.now().hour != 2:  # end on 02:00 am
 
     current_pet = 1
 
@@ -377,9 +379,9 @@ while baby_level < 25:
         logging.info('baby level is now ' + str(baby_level))
 
 
-logging.info('baby level up! program end!')
+# logging.info('baby level up! program end!')
 
-
+logging.info('time is up! program end!')
 
 
 
