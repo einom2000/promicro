@@ -32,9 +32,9 @@ logging.info('Program starts!')
 
 
 def pet_check():
-    if is_it_found('black_teeth_2'):
+    if is_it_found('2nd_pet_feature'):
         return 2
-    elif is_it_found('black_teeth_3'):
+    elif is_it_found('3rd_pet_feature'):
         return 3
     else:
         return 1
@@ -218,7 +218,9 @@ check_image = {'level23': 'level23.png',
                'revival_c_key': 'revival_c_key.png',
                'black_teeth_2': 'black_teeth_2.png',
                'black_teeth_3': 'black_teeth_3.png',
-               'rush_3': 'rush_3.png'
+               'rush_3': 'rush_3.png',
+               '2nd_pet_feature': '2nd_pet_feature.png',
+               '3rd_pet_feature': '3rd_pet_feature.png'
                }
 check_cord = {'level_check_box': (320, 320, 350, 350),
               'vs_image': (620, 40, 680, 80),
@@ -227,7 +229,9 @@ check_cord = {'level_check_box': (320, 320, 350, 350),
               'revival_c_key': (270, 650, 300, 690),
               'black_teeth_2':  (410, 680, 490, 750),
               'black_teeth_3': (470, 670, 550, 760),
-              'rush_3': (370, 680, 420, 735)
+              'rush_3': (370, 680, 420, 735),
+              '2nd_pet_feature': (470, 670, 550, 760),
+              '3rd_pet_feature': (410, 680, 490, 750)
               }
 battle_action = {1: (1, 0),
                  2: (2, 1, 3),
