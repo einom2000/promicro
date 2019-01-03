@@ -142,7 +142,7 @@ def key_2_sent(key):
 def master_action(pet_num):
     sleep(300, 500)
     next_pet_num = pet_num % 2 * (-1) + 3
-    if pet_num == 2 and pets_lives.get(pet_num) == 'alive' and pet_check() == pet_num:
+    if pets_lives.get(pet_num) == 'alive' and pet_check() == pet_num:
         key_2_sent(str(battle_action.get(pet_num)[0]))
         sleep(8000, 9000)
         result = check_for_attack_result()
