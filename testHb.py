@@ -1,11 +1,11 @@
 import pyautogui
 import keyboard, time, win32api, win32gui
-
-last_position = (0, 0)
-while True:
-    if keyboard.is_pressed('\\\\') and last_position != pyautogui.position():
-        print(pyautogui.position())
-        last_position = pyautogui.position()
+import os
+# last_position = (0, 0)
+# while True:
+#     if keyboard.is_pressed('\\\\') and last_position != pyautogui.position():
+#         print(pyautogui.position())
+#         last_position = pyautogui.position()
 
 # import datetime
 # now = datetime.datetime.now().hour
@@ -17,4 +17,10 @@ while True:
 #
 # hwnd = win32gui.FindWindow(None, '魔兽世界')
 # print(hwnd)
-# print(win32gui.GetWindowRect(hwnd))
+# print(win32gui.GetWindowRect(hwn
+#
+# if os.path.basename(__file__) == 'console_surface.py':
+#     logging.warning('script running on surface!')
+#     suffix = '_sur'd))
+
+print(os.path.basename(__file__))
