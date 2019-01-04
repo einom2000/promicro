@@ -213,6 +213,8 @@ elif os.path.basename(__file__) == 'ptbt_sur.py':
     port = 'COM3'
 else:
     port = ''
+    print('Wrong file name found!')
+    sys.exit()
 
 ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2)  # wait for arduino
@@ -256,6 +258,8 @@ elif os.path.basename(__file__) == 'ptbt_sur.py':
                   }
 else:
     check_cord = {}
+    print('Wrong file name found!')
+    sys.exit()
 
 
 battle_action = {1: (1, 0),
