@@ -89,7 +89,7 @@ def load_battle(enemy):
     sleep(1200, 1500)
     key_2_sent('y')  # y is the start battle key
     sleep(1500, 2000)
-    end = time.time() + 20 * 1
+    end = time.time() + 10 * 1
     fd = None
     while time.time() < end:
         fd = is_it_found('vs_image')
