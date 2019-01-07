@@ -316,7 +316,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
                     if sleep_time >= 10:
                         logging.info('all dead! sleep ' +
                                      str(sleep_time) + ' seconds to revival.')
-                        time.sleep(sleep_time)
+                        # time.sleep(sleep_time)
                     while not is_it_found('revival_c_key'):
                         pass
                     key_2_sent('c')
