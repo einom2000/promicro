@@ -2,7 +2,7 @@ import serial, keyboard, sys
 import win32api, win32gui, winsound
 import time, random, pyautogui
 import logging, json
-import cv2
+import cv2, os
 from datetime import datetime
 
 # P is for pet setting window
@@ -104,7 +104,9 @@ def find_wow_window():
         if hwndwow != 0:
             hwndwowrec = win32gui.GetWindowRect(hwndwow)
             print(hwndwow, hwndwowrec)
-            if hwndwowrec[:2] != (0, 0):
+            if os.path.basename(__file__) == 'ptbt.py':
+                win32gui.MoveWindow(hwndwow, 0, 0, 1296, 759, 0)
+            if os.path.basename(__file__) == 'ptbt_sur.py':
                 win32gui.MoveWindow(hwndwow, 0, 0, 988, 768, 0)
             logging.info('wow window was set to the up left corner')
             break
@@ -205,7 +207,15 @@ def master_action(pet_num):
 
 
 # game parameters setup
-port = 'COM3'  # note I'm using Mac OS-X
+if os.path.basename(__file__) == 'ptbt.py':
+    port = 'COM10'  # note I'm not using Mac OS-X
+elif os.path.basename(__file__) == 'ptbt_sur.py':
+    port = 'COM3'
+else:
+    port = ''
+    print('Wrong file name found!')
+    sys.exit()
+
 ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2)  # wait for arduino
 
@@ -222,17 +232,36 @@ check_image = {'level23': 'level23.png',
                '2nd_pet_feature': '2nd_pet_feature.png',
                '3rd_pet_feature': '3rd_pet_feature.png'
                }
-check_cord = {'level_check_box': (320, 320, 350, 350),
-              'vs_image': (465, 35, 530, 75),
-              'round_end': (380, 685, 450, 755),
-              'dead_choose': (230, 690, 430, 750),
-              'revival_c_key': (85, 660, 120, 700),
-              'black_teeth_2':  (270, 690, 330, 750),
-              'black_teeth_3': (325, 685, 380, 750),
-              'rush_3': (210, 690, 270, 750),
-              '2nd_pet_feature': (325, 685, 380, 750),
-              '3rd_pet_feature': (270, 690, 330, 750)
-              }
+if os.path.basename(__file__) == 'ptbt.py':
+    check_cord = {'level_check_box': (320, 320, 350, 350),
+                  'vs_image': (620, 40, 680, 80),
+                  'round_end': (530, 680, 600, 750),
+                  'dead_choose': (300, 600, 610, 760),
+                  'revival_c_key': (270, 650, 300, 690),
+                  'black_teeth_2':  (410, 680, 490, 750),
+                  'black_teeth_3': (470, 670, 550, 760),
+                  'rush_3': (370, 680, 420, 735),
+                  '2nd_pet_feature': (470, 670, 550, 760),
+                  '3rd_pet_feature': (410, 680, 490, 750)
+                  }
+elif os.path.basename(__file__) == 'ptbt_sur.py':
+    check_cord = {'level_check_box': (320, 320, 350, 350),
+                  'vs_image': (465, 35, 530, 75),
+                  'round_end': (380, 685, 450, 755),
+                  'dead_choose': (230, 690, 430, 750),
+                  'revival_c_key': (85, 660, 120, 700),
+                  'black_teeth_2': (270, 690, 330, 750),
+                  'black_teeth_3': (325, 685, 380, 750),
+                  'rush_3': (210, 690, 270, 750),
+                  '2nd_pet_feature': (325, 685, 380, 750),
+                  '3rd_pet_feature': (270, 690, 330, 750)
+                  }
+else:
+    check_cord = {}
+    print('Wrong file name found!')
+    sys.exit()
+
+
 battle_action = {1: (1, 0),
                  2: (2, 1, 3),
                  3: (3, 1, 2)
