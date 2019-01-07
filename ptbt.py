@@ -303,20 +303,24 @@ while datetime.now().hour != 2:  # end on 02:00 am
         if ld_battle is not None:
             battle_loaded = True
         else:
-            ld_battle = load_battle('z')
+            ld_battle = load_battle('x')
             if ld_battle is not None:
                 battle_loaded = True
             else:
-                # wait for revival
-                sleep_time = 480 - (time.time() - last_revival_time) - 10
-                if sleep_time >= 10:
-                    logging.info('all dead! sleep ' +
-                                 str(sleep_time) + ' seconds to revival.')
-                    time.sleep(sleep_time)
-                while not is_it_found('revival_c_key'):
-                    pass
-                key_2_sent('c')
-                sleep(500, 900)
+                ld_battle = load_battle('z')
+                if ld_battle is not None:
+                    battle_loaded = True
+                else:
+                    # wait for revival
+                    sleep_time = 480 - (time.time() - last_revival_time) - 10
+                    if sleep_time >= 10:
+                        logging.info('all dead! sleep ' +
+                                     str(sleep_time) + ' seconds to revival.')
+                        time.sleep(sleep_time)
+                    while not is_it_found('revival_c_key'):
+                        pass
+                    key_2_sent('c')
+                    sleep(500, 900)
 
     # battle loop start
     battle_is_running = True
