@@ -421,10 +421,5 @@ while datetime.now().hour != 2:  # end on 02:00 am
 logging.info('time is up! program end!')
 
 
-
-
-
-
-
-
 # loop unless the win feature shown
+
