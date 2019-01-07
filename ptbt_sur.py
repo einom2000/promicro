@@ -307,7 +307,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
             if ld_battle is not None:
                 battle_loaded = True
             else:
-                ld_battle = load_battle('y')
+                ld_battle = load_battle('z')
                 if ld_battle is not None:
                     battle_loaded = True
                 else:
