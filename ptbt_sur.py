@@ -282,9 +282,11 @@ baby_level = check_level()
 
 # mainloop start
 last_revival_time = time.time()
+end_time = [random.randint(2, 3), random.randint(10, 30)]
 
 # while baby_level < 26:   # rematch auto up-leveling team
-while datetime.now().hour != 2:  # end on 02:00 am
+while datetime.now().hour != end_time[0] \
+        or datetime.now().minute <= end_time[1]:  # end on 02:00 am
 
     current_pet = 1
 
