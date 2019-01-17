@@ -41,6 +41,7 @@ def key_2_sent(key):
     done_received = False
     while not done_received:
         original_msg = str(ard.read(ard.inWaiting())) # read all characters in buffer
+        print(original_msg)
         # to git rid of the serial print additional letters.
         msg = original_msg.replace('b\'', '').replace('\\r\\n', "   ")[:-2]
         if msg[0:4] == 'Done':
@@ -53,13 +54,11 @@ def key_2_sent(key):
     return
 
 
-port = 'COM10'
+port = 'COM15'
 ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2)  # wait for arduino
 
 while True:
-    key_2_sent('space')
+    key_2_sent('9')
     # time.sleep(1 )
-
-
 
