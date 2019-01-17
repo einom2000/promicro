@@ -28,15 +28,24 @@ void loop()
         readString += c; //makes the string readString
        }
      }
-     if (readString.length() >0)
+     if (readString.length() > 0)
      {
         char key_in = readString.charAt(0);
-        Keyboard.write(key_in);
-        Serial.print("Done!");
-        //Serial.println(readString); //see what was received
-        readString = "";
+        if (readString == 'space')
+        {
+          Keyboard.write((char) 32);
+          Serial.print("Done!");
+          readString = "";
+        }
+        else
+        {
+          Keyboard.write(key_in);
+          Serial.print("Done!");
+          //Serial.println(readString); //see what was received
+          readString = "";
+        }
       }
 
-     delay(500);
+     delay(200);
   }
 }
