@@ -23,4 +23,9 @@ import os
 #     logging.warning('script running on surface!')
 #     suffix = '_sur'd))
 
-print(os.path.basename(__file__))
+# print(os.path.basename(__file__))
+import time
+from datetime import datetime
+import random
+print(datetime.now().minute)
+print(random.randint(2,4))
