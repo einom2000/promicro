@@ -36,21 +36,22 @@ def key_2_sent(key):
     ard.flush()
     print ("Python value sent: " + key_sent)
     ard.write(str.encode(key_sent))
-    time.sleep(0.2) # I shortened this to match the new value in your arduino code
+    time.sleep(0.5) # I shortened this to match the new value in your arduino code
     # waiting for pro micro to send 'Done'
     done_received = False
     while not done_received:
         original_msg = str(ard.read(ard.inWaiting())) # read all characters in buffer
-        print(original_msg)
+        # print(original_msg)
         # to git rid of the serial print additional letters.
         msg = original_msg.replace('b\'', '').replace('\\r\\n', "   ")[:-2]
-        if msg[0:4] == 'Done':
+        # print(msg[-4:])
+        if msg[-4:] == 'Done':
             print("Message from arduino: ")
             print(msg)
             done_received = True
         else:
             ard.flush()
-            time.sleep(0.2)
+            time.sleep(0.5)
     return
 
 
@@ -59,6 +60,7 @@ ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2)  # wait for arduino
 
 while True:
-    key_2_sent('9')
-    # time.sleep(1 )
+    key_2_sent('9876,12345')
+    time.sleep(1)
+    key_2_sent('555,443')
 

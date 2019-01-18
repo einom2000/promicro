@@ -42,9 +42,20 @@ void loop()
         }
         else if (key_in <=57 )  // mouse move command
         {
-          String coordination(key_in);
-          int key_temp = coordination.toInt();
-          Keyboard.write((char) 65 + key_temp);
+          String str = readString;
+          char str_array[str.length()+1];
+          str.toCharArray(str_array, str.length()+1);
+          char *p = strtok(str_array, ",");
+          char *coordi[2];
+          int i = 0;
+          while (p != NULL)
+          {
+           coordi[i++] = p;
+           p = strtok (NULL, ",");
+          }
+//          Keyboard.write(coordi[5]);
+          Serial.print(coordi[1]);
+          Serial.print(coordi[0]);
           Serial.print("Done!");
           readString ="";
         }
@@ -57,6 +68,6 @@ void loop()
          }
       }
 
-     delay(200);
+     delay(500);
   }
 }
