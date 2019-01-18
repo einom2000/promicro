@@ -42,20 +42,12 @@ void loop()
         }
         else if (key_in <=57 )  // mouse move command
         {
-          String str = readString;
-          char str_array[str.length()+1];
-          str.toCharArray(str_array, str.length()+1);
-          char *p = strtok(str_array, ",");
-          char *coordi[2];
-          int i = 0;
-          while (p != NULL)
-          {
-           coordi[i++] = p;
-           p = strtok (NULL, ",");
-          }
-//          Keyboard.write(coordi[5]);
-          Serial.print(coordi[1]);
-          Serial.print(coordi[0]);
+          int commaIndex = readString.indexOf(',');
+          String positionX = readString.substring(0, commaIndex);
+          String positionY = readString.substring(commaIndex + 1);
+          int x = atoi(positionX.c_str());
+          int y = atoi(positionY.c_str());
+          AbsMouse.move(x, y);
           Serial.print("Done!");
           readString ="";
         }
