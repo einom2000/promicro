@@ -210,7 +210,7 @@ def master_action(pet_num):
 if os.path.basename(__file__) == 'ptbt.py':
     port = 'COM10'  # note I'm not using Mac OS-X
 elif os.path.basename(__file__) == 'ptbt_sur.py':
-    port = 'COM3'
+    port = 'COM4'
 else:
     port = ''
     print('Wrong file name found!')
