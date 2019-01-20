@@ -87,6 +87,6 @@ time.sleep(2)  # wait for arduino
 mouse_2_sent([100, 100])
 print(pyautogui.position())
 time.sleep(3)
-mouse_2_sent([2560, 1440])
+mouse_2_sent([2560, 1438])
 print(pyautogui.position())
 
