@@ -411,6 +411,7 @@ while datetime.now().hour != end_time[0] \
         while not is_it_found('revival_c_key'):
             pass
         key_2_sent('c')
+        key_2_sent('s')
         logging.info('revivaled all.')
         sleep(2000, 3000)
         last_revival_time = time.time()
