@@ -210,7 +210,7 @@ def master_action(pet_num):
 if os.path.basename(__file__) == 'ptbt.py':
     port = 'COM10'  # note I'm not using Mac OS-X
 elif os.path.basename(__file__) == 'ptbt_sur.py':
-    port = 'COM3'
+    port = 'COM4'
 else:
     port = ''
     print('Wrong file name found!')
@@ -411,6 +411,7 @@ while datetime.now().hour != end_time[0] \
         while not is_it_found('revival_c_key'):
             pass
         key_2_sent('c')
+        key_2_sent('s')
         logging.info('revivaled all.')
         sleep(2000, 3000)
         last_revival_time = time.time()
