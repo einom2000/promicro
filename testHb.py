@@ -57,7 +57,7 @@ def key_2_sent(key):
     return
 
 def mouse_2_sent(position):
-    key_sent = str(int(position[0] / X_RATIO)) + ',' + str(int(position[1] / Y_RATIO))
+    key_sent = 'M' + str(int(position[0] / X_RATIO)) + ',' + str(int(position[1] / Y_RATIO))
     ard.flush()
     print ("Python value sent: " + key_sent)
     ard.write(str.encode(key_sent))
@@ -84,9 +84,9 @@ ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2)  # wait for arduino
 
 
-mouse_2_sent([100,100])
+mouse_2_sent([100, 100])
 print(pyautogui.position())
 time.sleep(3)
-mouse_2_sent([2560, 1440])
+mouse_2_sent([2560, 1438])
 print(pyautogui.position())
 

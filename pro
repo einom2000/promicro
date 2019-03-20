@@ -40,10 +40,10 @@ void loop()
           Serial.print("Done!");
           readString = "";
         }
-        else if (key_in <=57 )  // mouse move command
+        else if (key_in == 'M' )  // mouse move command  or cuold be less than 57 to trigger the mouse
         {
           int commaIndex = readString.indexOf(',');
-          String positionX = readString.substring(0, commaIndex);
+          String positionX = readString.substring(1, commaIndex);
           String positionY = readString.substring(commaIndex + 1);
           int x = atoi(positionX.c_str());
           int y = atoi(positionY.c_str());
