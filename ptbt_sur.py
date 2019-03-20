@@ -89,7 +89,7 @@ def load_battle(enemy):
     sleep(1200, 1500)
     key_2_sent('y')  # y is the start battle key
     sleep(1500, 2000)
-    end = time.time() + 10 * 1
+    end = time.time() + 2 * 1
     fd = None
     while time.time() < end:
         fd = is_it_found('vs_image')
@@ -287,11 +287,10 @@ print('end_time = ' + str(end_time[0]) + ':' + str(end_time[1]))
 logging.info('end_time = ' + str(end_time[0]) + ':' + str(end_time[1]))
 
 # while baby_level < 26:   # rematch auto up-leveling team
-while datetime.now().hour != end_time[0] \
-        or datetime.now().minute <= end_time[1]:  # end on 02:00 am
-
+# while datetime.now().hour != end_time[0] \
+#         or datetime.now().minute <= end_time[1]:  # end on 02:00 am
+while True:
     current_pet = 1
-
     # if revival key is ready to do the revival after at least 5 minutes
     if time.time() - last_revival_time >= 420:
         while not is_it_found('revival_c_key'): # not all dead but time is ok for it
