@@ -62,25 +62,30 @@ def flash_pet_status():
                                   region=check_cord.get('1st_dead_mark'),
                                   grayscale=False,
                                   confidence=0.8) is not None:
-        if is_pets_alive.get(1):
-            is_pets_alive[1] = False
-        elif is_pets_alive.get(2):
-            is_pets_alive[2] = False
+        if not pet_was_dead_last_round:
+            if is_pets_alive.get(1):
+                is_pets_alive[1] = False
+            elif is_pets_alive.get(2):
+                is_pets_alive[2] = False
+            else:
+                is_pets_alive[3] = False
         else:
-            is_pets_alive[3] = False
+            is_pets_alive[1] = False
     if pyautogui.locateOnScreen(check_image.get('2nd_dead_mark'),
                                   region=check_cord.get('2nd_dead_mark'),
                                   grayscale=False,
                                   confidence=0.8) is not None:
-        if is_pets_alive.get(1):
-            is_pets_alive[2] = False
-        elif is_pets_alive.get(2):
-            is_pets_alive[3] = False
+        if not pet_was_dead_last_round:
+            if is_pets_alive.get(1):
+                is_pets_alive[2] = False
+            elif is_pets_alive.get(2):
+                is_pets_alive[3] = False
+            else:
+                is_pets_alive[1] = False
+                is_pets_alive[2] = False
+                is_pets_alive[3] = False
         else:
-            is_pets_alive[1] = False
             is_pets_alive[2] = False
-            is_pets_alive[3] = False
-        is_pets_alive[2] = False
     if pyautogui.locateOnScreen(check_image.get('3rd_dead_mark'),
                                 region=check_cord.get('3rd_dead_mark'),
                                 grayscale=False,
@@ -164,6 +169,9 @@ def found_level(level_img, position):
 
 def key_2_sent(key):
     pyautogui.press(key)
+    if key != '4':
+        time.sleep(0.01)
+        pyautogui.press(key)
     time.sleep(random.randint(1000, 3000) / 1000)
     print('send key =' + key)
     return
@@ -312,7 +320,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
     is_pets_alive = {1: True,
                   2: True,
                   3: True}
-
+    pet_was_dead_last_round = False
     battle_time = time.time()
 
     while battle_is_running:
@@ -331,6 +339,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
             if result == 0:
                 flash_pet_status()
                 is_pets_alive[current_pet] = False
+                pet_was_dead_last_round = True
                 next_pet = current_pet + 1
                 if next_pet > 3:
                     next_pet = 1
@@ -398,6 +407,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
             # pets dead round
             if result == 0:
                 flash_pet_status()
+                pet_was_dead_last_round = True
                 is_pets_alive[current_pet] = False
                 next_pet = current_pet + 1
                 if next_pet > 3:
