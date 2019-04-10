@@ -57,51 +57,61 @@ def check_level():
     return bb_level
 
 
-def flash_pet_status():
-    if pyautogui.locateOnScreen(check_image.get('1st_dead_mark'),
-                                  region=check_cord.get('1st_dead_mark'),
-                                  grayscale=False,
-                                  confidence=0.8) is not None:
-        if not pet_was_dead_last_round:
-            if is_pets_alive.get(1):
-                is_pets_alive[1] = False
-            elif is_pets_alive.get(2):
-                is_pets_alive[2] = False
-            else:
-                is_pets_alive[3] = False
-        else:
-            is_pets_alive[1] = False
-    if pyautogui.locateOnScreen(check_image.get('2nd_dead_mark'),
-                                  region=check_cord.get('2nd_dead_mark'),
-                                  grayscale=False,
-                                  confidence=0.8) is not None:
-        if not pet_was_dead_last_round:
-            if is_pets_alive.get(1):
-                is_pets_alive[2] = False
-            elif is_pets_alive.get(2):
-                is_pets_alive[3] = False
-            else:
-                is_pets_alive[1] = False
-                is_pets_alive[2] = False
-                is_pets_alive[3] = False
-        else:
-            is_pets_alive[2] = False
-    if pyautogui.locateOnScreen(check_image.get('3rd_dead_mark'),
-                                region=check_cord.get('3rd_dead_mark'),
+def check_pet_alive():
+    time.sleep(random.randint(2000, 3000) / 1000)
+    key_2_sent('p')
+    if pyautogui.locateOnScreen(check_image.get('dead_icon_on_pet_menu1'),
+                                region=check_cord.get('dead_icon_on_pet_menu1'),
+                                grayscale=False,
+                                confidence=0.8) is not None:
+        is_pets_alive[1] = False
+    else:
+        is_pets_alive[1] = True
+    if pyautogui.locateOnScreen(check_image.get('dead_icon_on_pet_menu2'),
+                                region=check_cord.get('dead_icon_on_pet_menu2'),
+                                grayscale=False,
+                                confidence=0.8) is not None:
+        is_pets_alive[2] = False
+    else:
+        is_pets_alive[2] = True
+    if pyautogui.locateOnScreen(check_image.get('dead_icon_on_pet_menu3'),
+                                region=check_cord.get('dead_icon_on_pet_menu3'),
                                 grayscale=False,
                                 confidence=0.8) is not None:
         is_pets_alive[3] = False
+    else:
+        is_pets_alive[3] = True
+    time.sleep(random.randint(1000, 2000) / 1000)
+    key_2_sent('p')
+    print('pet check: = ', end='')
+    print(is_pets_alive)
+    sleep(1200, 1400)
 
 
 def check_for_attack_result():
     tm = time.time()
     while True:
-        if is_it_found('round_end'):
-            return 1
-        elif is_it_found('dead_choose'):
-            return 0
-        elif not is_it_found('vs_image'):
-            return -1
+        if left_pets == 3:
+            if is_it_found('round_end'):
+                return 1
+            elif is_it_found('dead_choose'):
+                return 0
+            elif not is_it_found('vs_image'):
+                return -1
+        elif left_pets == 2:
+            if is_it_found('up_dead_icon1'):
+                return 99  # dead don't have to choose
+            elif is_it_found('round_end'):
+                return 1
+            elif not is_it_found('vs_image'):
+                return -1
+        elif left_pets == 1:
+            if is_it_found('round_end'):
+                return 1
+            elif not is_it_found('vs_image'):
+                return -1
+            elif time.time() - tm >= 7:
+                return 1
         if time.time() - tm >= 15:  # in case some trick to prevent from swift team member
             return 1
 
@@ -135,7 +145,7 @@ def load_battle(enemy):
     sleep(1200, 1500)
     key_2_sent('y')  # y is the start battle key
     sleep(1500, 2000)
-    end = time.time() + 20 * 1
+    end = time.time() + 15 * 1
     fd = None
     while time.time() < end:
         fd = is_it_found('vs_image')
@@ -167,9 +177,33 @@ def found_level(level_img, position):
     return fd
 
 
+def set_all_dead():
+    global is_pets_alive, left_pets, current_pet
+    is_pets_alive = {1: False,
+                     2: False,
+                     3: False}
+    left_pets = 0
+    current_pet = -1
+
+
+def revival():
+    global is_pets_alive, last_revival_time, current_pet
+    while not is_it_found('revival_c_key'):
+        pass
+    key_2_sent('c')
+    key_2_sent(' ')
+    is_pets_alive = {1: True,
+                     2: True,
+                     3: True}
+    logging.info('revivaled all.')
+
+    sleep(2000, 3000)
+    last_revival_time = time.time()
+    current_pet = 1
+
 def key_2_sent(key):
     pyautogui.press(key)
-    if key != '4':
+    if key != '4' and key != 'p':
         time.sleep(0.01)
         pyautogui.press(key)
     time.sleep(random.randint(1000, 3000) / 1000)
@@ -205,7 +239,14 @@ check_image = {'level23': 'level23.png',
                'black_teeth_buff': 'black_teeth_buff.png',
                '1st_dead_mark': 'dead_mark.png',
                '2nd_dead_mark': 'dead_mark.png',
-               '3rd_dead_mark': 'dead_mark.png'
+               '3rd_dead_mark': 'dead_mark.png',
+               'up_dead_icon1': 'up_dead_icon.png',
+               'up_dead_icon2': 'up_dead_icon.png',
+               'up_vacant_icon1': 'up_vacant_icon.png',
+               'up_vacant_icon2': 'up_vacant_icon.png',
+               'dead_icon_on_pet_menu1': 'dead_icon_on_pet_menu.png',
+               'dead_icon_on_pet_menu2': 'dead_icon_on_pet_menu.png',
+               'dead_icon_on_pet_menu3': 'dead_icon_on_pet_menu.png'
                }
 if os.path.basename(__file__) == 'ptbt.py':
     check_cord = {'level_check_box': (320, 320, 40, 40),
@@ -249,7 +290,14 @@ else:
                   'black_teeth_buff': (900, 160, 300, 60),
                   '1st_dead_mark': (370, 580, 50, 50),
                   '2nd_dead_mark': (560, 580, 50, 50),
-                  '3rd_dead_mark': (750, 580, 50, 50)
+                  '3rd_dead_mark': (750, 580, 50, 50),
+                  'up_dead_icon1': (170, 35, 50, 50),
+                  'up_dead_icon2': (170, 78, 50, 50),
+                  'up_vacant_icon1': (170, 35, 50, 50),
+                  'up_vacant_icon2': (170, 78, 50, 50),
+                  'dead_icon_on_pet_menu1': (305, 240, 40, 40),
+                  'dead_icon_on_pet_menu2': (305, 365, 40, 40),
+                  'dead_icon_on_pet_menu3': (305, 490, 40, 40)
                   }
 
 battle_action = {1: (2, 1),
@@ -257,7 +305,7 @@ battle_action = {1: (2, 1),
                  3: (3, 1)
                  }
 
-TIME_ADJ = 0.80
+TIME_ADJ = 0.70
 # set wow window to up_left
 find_wow_window()
 
@@ -273,14 +321,16 @@ winsound.Beep(500, 300)
 baby_level = 25
 # mainloop start
 last_revival_time = time.time()
+current_pet = 1
+is_pets_alive = {1: True,
+                 2: True,
+                 3: True}
 
 # while baby_level < 26:   # rematch auto up-leveling team
 while datetime.now().hour != 2:  # end on 02:00 am
-    time.sleep(random.randint(5000, 6000) / 1000)
-    current_pet = 1
-
+    time.sleep(random.randint(2000, 4000) / 1000)
     # if revival key is ready to do the revival after at least 5 minutes
-    if time.time() - last_revival_time >= 420:
+    if time.time() - last_revival_time >= 480:
         while not is_it_found('revival_c_key'): # not all dead but time is ok for it
             pass
         key_2_sent('c')
@@ -289,16 +339,26 @@ while datetime.now().hour != 2:  # end on 02:00 am
 
     # loading battle
     battle_loaded = False
+
+    check_pet_alive()
+
+    left_pets = 0
+    for i in range(3):
+        if is_pets_alive.get(i + 1):
+            left_pets += 1
+    if left_pets == 0:
+        revival()
+
     while not battle_loaded:
         ld_battle = load_battle('x')
         if ld_battle is not None:
             battle_loaded = True
         else:
-            ld_battle = load_battle('x')
+            ld_battle = load_battle('z')
             if ld_battle is not None:
                 battle_loaded = True
             else:
-                ld_battle = load_battle('z')
+                ld_battle = load_battle('c')
                 if ld_battle is not None:
                     battle_loaded = True
                 else:
@@ -317,29 +377,29 @@ while datetime.now().hour != 2:  # end on 02:00 am
     battle_is_running = True
     logging.info('battle start!')
     sleep(8000 * TIME_ADJ, 9000 * TIME_ADJ)
-    is_pets_alive = {1: True,
-                  2: True,
-                  3: True}
-    pet_was_dead_last_round = False
+
     battle_time = time.time()
 
+    # count the pets alive
     while battle_is_running:
-
+        left_pets = 0
+        for i in range(3):
+            if is_pets_alive.get(i + 1):
+                left_pets += 1
+        print('now there are %d pets left.' % left_pets)
         time.sleep(random.randint(2000, 3000) / 1000)
         pt = pet_check()
         if pt != 0:
             current_pet = pt
         print('current PET = ' + str(current_pet))
         if is_debuffed():
+            time.sleep(3)
             key_2_sent(str(battle_action.get(current_pet)[1]))
             sleep(12000 * TIME_ADJ, 13000 * TIME_ADJ)
             result = check_for_attack_result()
-            print('current pet = ' + str(current_pet))
             # pets dead round
             if result == 0:
-                flash_pet_status()
                 is_pets_alive[current_pet] = False
-                pet_was_dead_last_round = True
                 next_pet = current_pet + 1
                 if next_pet > 3:
                     next_pet = 1
@@ -360,7 +420,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
                         logging.info('2 bbs are dead, change to the last one')
                         print('2 bbs are dead, change to the last one')
                     else:
-                        current_pet = -1
+                        set_all_dead()
                         battle_is_running = False
                         print('all bbs dead')
             # battle ended
@@ -370,9 +430,9 @@ while datetime.now().hour != 2:  # end on 02:00 am
                 battle_is_running = False
             # normal ending round
             elif result == 1:
-                key_2_sent('4')
-                flash_pet_status()
-                sleep(5000 * TIME_ADJ, 6000 * TIME_ADJ)
+                if left_pets != 1:
+                    key_2_sent('4')
+                    sleep(5000 * TIME_ADJ, 6000 * TIME_ADJ)
                 # now in the pet picking menu
                 next_pet = current_pet + 1
                 if next_pet > 3:
@@ -394,20 +454,37 @@ while datetime.now().hour != 2:  # end on 02:00 am
                         logging.info('change to the last one')
                         print('change to the last one')
                     else:
-                        key_2_sent(str(current_pet))
                         sleep(500, 800)
+                        key_2_sent('6')
+                        set_all_dead()
                         logging.info('the other 2 are dead, fight with this one again')
                         print('the other 2 are dead, fight with this one again')
+
+
+            elif result == 99:
+                is_pets_alive[current_pet] = False
+                pt = pet_check()
+                if pt != 0:
+                    current_pet = pet_check()
+                else:
+                    gt = 0
+                    for i in range(3):
+                        if is_pets_alive.get(i + 1) is True:
+                            current_pet = i + 1
+                            gt += 1
+                    if gt != 1:
+                        # something wrong set all pet dead
+                        set_all_dead()
+                        battle_is_running = False
+                        print('some pets counts running wrong!')
+                pass
 
         else:
             key_2_sent(str(battle_action.get(current_pet)[0]))
             sleep(12000 * TIME_ADJ, 13000 * TIME_ADJ)
             result = check_for_attack_result()
-            print('current pet = ' + str(current_pet))
-            # pets dead round
+             # pets dead round
             if result == 0:
-                flash_pet_status()
-                pet_was_dead_last_round = True
                 is_pets_alive[current_pet] = False
                 next_pet = current_pet + 1
                 if next_pet > 3:
@@ -429,14 +506,36 @@ while datetime.now().hour != 2:  # end on 02:00 am
                         logging.info('2 bbs are dead, change to the last one')
                         print('2 bbs are dead, change to the last one')
                     else:
-                        current_pet = -1
+                        set_all_dead()
                         battle_is_running = False
                         print('all bbs dead')
+
             # battle ended
             elif result == -1:
                 current_pet = -1
                 print('battle is ended!')
                 battle_is_running = False
+
+            elif result == 1:
+                pass
+
+            elif result == 99:
+                is_pets_alive[current_pet] = False
+                pt = pet_check()
+                if pt != 0:
+                    current_pet = pet_check()
+                else:
+                    gt = 0
+                    for i in range(3):
+                        if is_pets_alive.get(i + 1) is True:
+                            current_pet = i + 1
+                            gt += 1
+                    if gt != 1:
+                        # something wrong set all pet dead
+                        set_all_dead()
+                        battle_is_running = False
+                        print('some pets counts running wrong!')
+                pass
 
 
         if time.time() - battle_time >= 460:
@@ -455,14 +554,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
         print(is_pets_alive)
 
     if is_pets_alive.get(1) is False and is_pets_alive.get(2) is False and is_pets_alive.get(3) is False:  # all dead
-        while not is_it_found('revival_c_key'):
-            pass
-        key_2_sent('c')
-        key_2_sent(' ')
-        logging.info('revivaled all.')
-        sleep(2000, 3000)
-        last_revival_time = time.time()
-        current_pet = 1
+        revival()
         # sleep(2000, 3000)
         # baby_level = check_level()
         # logging.info('baby level is now ' + str(baby_level))
