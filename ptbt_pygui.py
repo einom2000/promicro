@@ -188,7 +188,11 @@ def set_all_dead():
 
 def revival():
     global is_pets_alive, last_revival_time, current_pet
+    k = 1
     while not is_it_found('revival_c_key'):
+        key_2_sent(str(k % 2 + 2))
+        k += 1
+        sleep(500, 800)
         pass
     key_2_sent('c')
     key_2_sent(' ')
@@ -400,6 +404,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
             # pets dead round
             if result == 0:
                 is_pets_alive[current_pet] = False
+                left_pets -= 1
                 next_pet = current_pet + 1
                 if next_pet > 3:
                     next_pet = 1
@@ -463,6 +468,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
 
             elif result == 99:
                 is_pets_alive[current_pet] = False
+                left_pets -= 1
                 pt = pet_check()
                 if pt != 0:
                     current_pet = pet_check()
@@ -486,6 +492,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
              # pets dead round
             if result == 0:
                 is_pets_alive[current_pet] = False
+                left_pets -= 1
                 next_pet = current_pet + 1
                 if next_pet > 3:
                     next_pet = 1
@@ -521,6 +528,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
 
             elif result == 99:
                 is_pets_alive[current_pet] = False
+                left_pets -= 1
                 pt = pet_check()
                 if pt != 0:
                     current_pet = pet_check()
