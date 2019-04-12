@@ -124,6 +124,7 @@ def is_it_found(key):
     print(key, fd)
     return fd
 
+
 def is_debuffed():
     if is_it_found('black_teeth_buff') is not None:
         print('target is debuffed')
@@ -205,6 +206,7 @@ def revival():
     last_revival_time = time.time()
     current_pet = 1
 
+
 def key_2_sent(key):
     pyautogui.press(key)
     if key != '4' and key != 'p':
@@ -213,6 +215,7 @@ def key_2_sent(key):
     time.sleep(random.randint(1000, 3000) / 1000)
     print('send key =' + key)
     return
+
 
 # game parameters setup
 if os.path.basename(__file__) == 'ptbt.py':
@@ -465,7 +468,6 @@ while datetime.now().hour != 2:  # end on 02:00 am
                         logging.info('the other 2 are dead, fight with this one again')
                         print('the other 2 are dead, fight with this one again')
 
-
             elif result == 99:
                 is_pets_alive[current_pet] = False
                 left_pets -= 1
@@ -489,7 +491,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
             key_2_sent(str(battle_action.get(current_pet)[0]))
             sleep(12000 * TIME_ADJ, 13000 * TIME_ADJ)
             result = check_for_attack_result()
-             # pets dead round
+            # pets dead round
             if result == 0:
                 is_pets_alive[current_pet] = False
                 left_pets -= 1
@@ -544,7 +546,6 @@ while datetime.now().hour != 2:  # end on 02:00 am
                         battle_is_running = False
                         print('some pets counts running wrong!')
                 pass
-
 
         if time.time() - battle_time >= 460:
             logging.info('battle time too long, let us yielding!')
