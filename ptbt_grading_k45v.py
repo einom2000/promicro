@@ -208,12 +208,24 @@ def revival():
 
 
 def key_2_sent(key):
-    pyautogui.press(key)
-    if key != '4' and key != 'p':
-        time.sleep(0.01)
-        pyautogui.press(key)
-    time.sleep(random.randint(1000, 3000) / 1000)
-    print('send key =' + key)
+    key_sent = str(key)
+    ard.flush()
+    print ("Python value sent: " + key_sent)
+    ard.write(str.encode(key_sent))
+    time.sleep(0.5) # I shortened this to match the new value in your arduino code
+    # waiting for pro micro to send 'Done'
+    done_received = False
+    while not done_received:
+        original_msg = str(ard.read(ard.inWaiting())) # read all characters in buffer
+        # to git rid of the serial print additional letters.
+        msg = original_msg.replace('b\'', '').replace('\\r\\n', "   ")[:-2]
+        if msg[0:4] == 'Done':
+            # print("Message from arduino: ")
+            # print(msg)
+            done_received = True
+        else:
+            ard.flush()
+            time.sleep(0.3)
     return
 
 
@@ -224,7 +236,8 @@ elif os.path.basename(__file__) == 'ptbt_sur.py':
     port = 'COM3'
 else:
     port = ''
-    print('simulating with pyauto')
+    print('Wrong file name found!')
+    sys.exit()
 
 if port != '':
     ard = serial.Serial(port, 9600, timeout=5)
@@ -491,7 +504,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
             key_2_sent(str(battle_action.get(current_pet)[0]))
             sleep(12000 * TIME_ADJ, 13000 * TIME_ADJ)
             result = check_for_attack_result()
-            # pets dead round
+             # pets dead round
             if result == 0:
                 is_pets_alive[current_pet] = False
                 left_pets -= 1

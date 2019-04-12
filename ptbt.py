@@ -422,4 +422,3 @@ logging.info('time is up! program end!')
 
 
 # loop unless the win feature shown
-
