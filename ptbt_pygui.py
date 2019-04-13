@@ -294,7 +294,7 @@ else:
                   '2nd_pet_feature': (470, 670, 100, 100),
                   '3rd_pet_feature': (410, 680, 100, 100),
                   '1st_pet_feature': (470, 670, 100, 100),
-                  'black_teeth_buff': (900, 160, 300, 60),
+                  'black_teeth_buff': (900, 100, 300,220),
                   '1st_dead_mark': (370, 580, 50, 50),
                   '2nd_dead_mark': (560, 580, 50, 50),
                   '3rd_dead_mark': (750, 580, 50, 50),
