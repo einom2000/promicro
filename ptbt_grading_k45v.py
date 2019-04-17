@@ -230,8 +230,8 @@ def key_2_sent(key):
 
 
 # game parameters setup
-if os.path.basename(__file__) == 'ptbt.py':
-    port = 'COM10'  # note I'm not using Mac OS-X
+if os.path.basename(__file__) == 'ptbt_grading_k45v.py':
+    port = 'COM5'  # note I'm not using Mac OS-X
 elif os.path.basename(__file__) == 'ptbt_sur.py':
     port = 'COM3'
 else:
@@ -307,7 +307,7 @@ else:
                   '2nd_pet_feature': (470, 670, 100, 100),
                   '3rd_pet_feature': (410, 680, 100, 100),
                   '1st_pet_feature': (470, 670, 100, 100),
-                  'black_teeth_buff': (900, 160, 300, 60),
+                  'black_teeth_buff': (900, 100, 300,220),
                   '1st_dead_mark': (370, 580, 50, 50),
                   '2nd_dead_mark': (560, 580, 50, 50),
                   '3rd_dead_mark': (750, 580, 50, 50),
@@ -504,7 +504,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
             key_2_sent(str(battle_action.get(current_pet)[0]))
             sleep(12000 * TIME_ADJ, 13000 * TIME_ADJ)
             result = check_for_attack_result()
-             # pets dead round
+            # pets dead round
             if result == 0:
                 is_pets_alive[current_pet] = False
                 left_pets -= 1
