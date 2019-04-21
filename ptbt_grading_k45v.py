@@ -366,7 +366,7 @@ while datetime.now().hour != 2:  # end on 02:00 am
     for i in range(3):
         if is_pets_alive.get(i + 1):
             left_pets += 1
-    if left_pets == 0:
+    if left_pets <= 1:
         revival()
 
     while not battle_loaded:
