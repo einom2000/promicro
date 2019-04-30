@@ -198,20 +198,24 @@ class LoginWindow:
 
 def pet_check():
     if is_it_found('2nd_pet_feature'):
-        engine.say('当前是二号宠物')
-        engine.runAndWait()
+        if debug_voice:
+            engine.say('当前是二号宠物')
+            engine.runAndWait()
         return 2
     elif is_it_found('3rd_pet_feature'):
-        engine.say('当前是三号宠物')
-        engine.runAndWait()
+        if debug_voice:
+            engine.say('当前是三号宠物')
+            engine.runAndWait()
         return 3
     elif is_it_found('1st_pet_feature'):
-        engine.say('当前是一号宠物')
-        engine.runAndWait()
+        if debug_voice:
+            engine.say('当前是一号宠物')
+            engine.runAndWait()
         return 1
     else:
-        engine.say('当前宠物未知')
-        engine.runAndWait()
+        if debug_voice:
+            engine.say('当前宠物未知')
+            engine.runAndWait()
         return 0
 
 
@@ -266,46 +270,56 @@ def check_for_attack_result():
     while True:
         if left_pets == 3:
             if is_it_found('round_end'):
-                engine.say('剩余三个，回合结束')
-                engine.runAndWait()
+                if debug_voice:
+                    engine.say('剩余三个，回合结束')
+                    engine.runAndWait()
                 return 1
             elif is_it_found('dead_choose'):
-                engine.say('剩余三个，宠物死亡，重新选择宠物')
-                engine.runAndWait()
+                if debug_voice:
+                    engine.say('剩余三个，宠物死亡，重新选择宠物')
+                    engine.runAndWait()
                 return 0
             elif not is_it_found('vs_image'):
-                engine.say('剩余三个，对战结束')
-                engine.runAndWait()
+                if debug_voice:
+                    engine.say('剩余三个，对战结束')
+                    engine.runAndWait()
                 return -1
         elif left_pets == 2:
             if is_it_found('up_dead_icon1'):
-                engine.say('剩余两个，现在死亡一个，结束战斗')
-                engine.runAndWait()
+                if debug_voice:
+                    engine.say('剩余两个，现在死亡一个，结束战斗')
+                    engine.runAndWait()
                 return 99  # dead don't have to choose
             elif is_it_found('round_end'):
-                engine.say('剩余两个，回合结束')
-                engine.runAndWait()
+                if debug_voice:
+                    engine.say('剩余两个，回合结束')
+                    engine.runAndWait()
                 return 1
             elif not is_it_found('vs_image'):
-                engine.say('剩余两个，对战结束')
-                engine.runAndWait()
+                if debug_voice:
+                    engine.say('剩余两个，结束对战')
+                    engine.runAndWait()
                 return -1
         elif left_pets == 1:
             if is_it_found('round_end'):
-                engine.say('剩余一个，回合结束')
-                engine.runAndWait()
+                if debug_voice:
+                    engine.say('剩余一个，回合结束')
+                    engine.runAndWait()
                 return 1
             elif not is_it_found('vs_image'):
-                engine.say('剩余一个，对战结束')
-                engine.runAndWait()
+                if debug_voice:
+                    engine.say('剩余一个，结束对战')
+                    engine.runAndWait()
                 return -1
             elif time.time() - tm >= 6:
-                engine.say('大于六秒，无法判断,默认回合结束')
-                engine.runAndWait()
+                if debug_voice:
+                    engine.say('大于六秒，无法判断,默认回合结束')
+                    engine.runAndWait()
                 return 1
-        if time.time() - tm >= 15:  # in case some trick to prevent from swift team member
-            engine.say('大于十秒，无法判断,默认回合结束')
-            engine.runAndWait()
+        if time.time() - tm >= 15: # in case some trick to prevent from swift team member
+            if debug_voice:
+                engine.say('大于十秒，无法判断,默认回合结束')
+                engine.runAndWait()
             return 1
 
 
@@ -321,13 +335,15 @@ def is_it_found(key):
 def is_debuffed():
     if is_it_found('black_teeth_buff') is not None:
         print('target is debuffed')
-        engine.say('黑齿')
-        engine.runAndWait()
+        if debug_voice:
+            engine.say('黑齿')
+            engine.runAndWait()
         return True
     else:
         print('target is not debuffed')
-        engine.say('无黑齿')
-        engine.runAndWait()
+        if debug_voice:
+            engine.say('无黑齿')
+            engine.runAndWait()
         return False
 
 
@@ -397,8 +413,9 @@ def revival():
         return
 
     while not is_it_found('revival_c_key'):
-        engine.say('等待复活')
-        engine.runAndWait()
+        if debug_voice:
+            engine.say('等待复活')
+            engine.runAndWait()
         key_2_sent(str(k % 2 + 2))
         k += 1
         sleep(500, 800)
@@ -579,6 +596,7 @@ find_wow_window()
 print('press ctrl to start')
 engine.say('请按CONTROL键开始')
 engine.runAndWait()
+debug_voice = False
 
 while not keyboard.is_pressed('ctrl'):
     pass
@@ -621,10 +639,10 @@ while datetime.now().hour != 4:  # end on 04:00 am
     if left_pets <= 1:
         engine.say('只有一个宠物是活的，等待复活')
         revival()
-
-    speech = '现有' + str(left_pets) + '个活的宠物'
-    engine.say(speech)
-    engine.runAndWait()
+    if debug_voice:
+        speech = '现有' + str(left_pets) + '个活的宠物'
+        engine.say(speech)
+        engine.runAndWait()
 
     while not battle_loaded:
         ld_battle = load_battle('x')
@@ -839,7 +857,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
             current_pet = 1
             if is_it_found('vs_image'):
                 key_2_sent('6')
-                sleep(1200 * TIME_ADJ, 1600 * TIME_ADJ)
+                sleep(1200 , 1600 )
                 key_2_sent('v')
                 sleep(14000 * TIME_ADJ, 16000 * TIME_ADJ)
         print(is_pets_alive)
