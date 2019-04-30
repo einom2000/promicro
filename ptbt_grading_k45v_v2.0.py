@@ -59,6 +59,8 @@ def enumhandler(hwnd, lParam):
             # rect = win32gui.GetWindowRect(hwnd)
             # print(rect[2] - rect[0], rect[3] - rect[1])
             win32gui.MoveWindow(hwnd, 0, 0, 1296, 759, True)
+            engine.say('找到魔兽世界窗口')
+            engine.runAndWait()
             # rect = win32gui.GetWindowRect(hwnd)
             # print(rect[2] - rect[0], rect[3] - rect[1])
             # print(rect)
@@ -71,6 +73,8 @@ def is_off_line():
         found = pyautogui.locateCenterOnScreen('off_line_logo.png', region=OFF_LINE_LOGO_REGION,
                                                grayscale=False, confidence=0.9)
         if found is not None:
+            engine.say('掉线，重新连接')
+            engine.runAndWait()
             break
     return found
 
@@ -194,12 +198,20 @@ class LoginWindow:
 
 def pet_check():
     if is_it_found('2nd_pet_feature'):
+        engine.say('当前是二号宠物')
+        engine.runAndWait()
         return 2
     elif is_it_found('3rd_pet_feature'):
+        engine.say('当前是三号宠物')
+        engine.runAndWait()
         return 3
     elif is_it_found('1st_pet_feature'):
+        engine.say('当前是一号宠物')
+        engine.runAndWait()
         return 1
     else:
+        engine.say('当前宠物未知')
+        engine.runAndWait()
         return 0
 
 
@@ -254,26 +266,46 @@ def check_for_attack_result():
     while True:
         if left_pets == 3:
             if is_it_found('round_end'):
+                engine.say('剩余三个，回合结束')
+                engine.runAndWait()
                 return 1
             elif is_it_found('dead_choose'):
+                engine.say('剩余三个，宠物死亡，重新选择宠物')
+                engine.runAndWait()
                 return 0
             elif not is_it_found('vs_image'):
+                engine.say('剩余三个，对战结束')
+                engine.runAndWait()
                 return -1
         elif left_pets == 2:
             if is_it_found('up_dead_icon1'):
+                engine.say('剩余两个，现在死亡一个，结束战斗')
+                engine.runAndWait()
                 return 99  # dead don't have to choose
             elif is_it_found('round_end'):
+                engine.say('剩余两个，回合结束')
+                engine.runAndWait()
                 return 1
             elif not is_it_found('vs_image'):
+                engine.say('剩余两个，对战结束')
+                engine.runAndWait()
                 return -1
         elif left_pets == 1:
             if is_it_found('round_end'):
+                engine.say('剩余一个，回合结束')
+                engine.runAndWait()
                 return 1
             elif not is_it_found('vs_image'):
+                engine.say('剩余一个，对战结束')
+                engine.runAndWait()
                 return -1
-            elif time.time() - tm >= 7:
+            elif time.time() - tm >= 6:
+                engine.say('大于六秒，无法判断,默认回合结束')
+                engine.runAndWait()
                 return 1
         if time.time() - tm >= 15:  # in case some trick to prevent from swift team member
+            engine.say('大于十秒，无法判断,默认回合结束')
+            engine.runAndWait()
             return 1
 
 
@@ -289,9 +321,13 @@ def is_it_found(key):
 def is_debuffed():
     if is_it_found('black_teeth_buff') is not None:
         print('target is debuffed')
+        engine.say('黑齿')
+        engine.runAndWait()
         return True
     else:
         print('target is not debuffed')
+        engine.say('无黑齿')
+        engine.runAndWait()
         return False
 
 
@@ -307,7 +343,7 @@ def load_battle(enemy):
     sleep(1200, 1500)
     key_2_sent('y')  # y is the start battle key
     sleep(1500, 2000)
-    end = time.time() + 6 * 1
+    end = time.time() + 6 * TIME_ADJ * 1
     fd = None
     while time.time() < end:
         fd = is_it_found('vs_image')
@@ -361,6 +397,8 @@ def revival():
         return
 
     while not is_it_found('revival_c_key'):
+        engine.say('等待复活')
+        engine.runAndWait()
         key_2_sent(str(k % 2 + 2))
         k += 1
         sleep(500, 800)
@@ -581,20 +619,31 @@ while datetime.now().hour != 4:  # end on 04:00 am
         if is_pets_alive.get(i + 1):
             left_pets += 1
     if left_pets <= 1:
+        engine.say('只有一个宠物是活的，等待复活')
         revival()
+
+    speech = '现有' + str(left_pets) + '个活的宠物'
+    engine.say(speech)
+    engine.runAndWait()
 
     while not battle_loaded:
         ld_battle = load_battle('x')
         if ld_battle is not None:
             battle_loaded = True
+            engine.say('找到泽地小歌手')
+            engine.runAndWait()
         else:
             ld_battle = load_battle('x')
             if ld_battle is not None:
                 battle_loaded = True
+                engine.say('找到泽地小歌手')
+                engine.runAndWait()
             else:
                 ld_battle = load_battle('z')
                 if ld_battle is not None:
                     battle_loaded = True
+                    engine.say('找到小艺')
+                    engine.runAndWait()
                 else:
                     ld_battle = load_battle('c')
                     if ld_battle is not None:
