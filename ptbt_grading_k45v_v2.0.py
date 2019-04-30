@@ -536,7 +536,8 @@ check_image = {'level23': 'level23.png',
                'dead_icon_on_pet_menu1': 'dead_icon_on_pet_menu.png',
                'dead_icon_on_pet_menu2': 'dead_icon_on_pet_menu.png',
                'dead_icon_on_pet_menu3': 'dead_icon_on_pet_menu.png',
-               'rush_cooling': 'rush_cooling.png'
+               'rush_cooling': 'rush_cooling.png',
+               'bite_cooling': 'bite_cooling.png'
                }
 if os.path.basename(__file__) == 'ptbt.py':
     check_cord = {'level_check_box': (320, 320, 40, 40),
@@ -578,7 +579,8 @@ else:
                   '2nd_pet_feature_beta': (470, 670, 100, 100),
                   '3rd_pet_feature': (410, 680, 100, 100),
                   '1st_pet_feature': (470, 670, 100, 100),
-                  'rush_cooling': (400, 670, 100, 100),
+                  'rush_cooling': (350, 670, 200, 100),
+                  'bite_cooling': (470, 670, 100, 100),
                   'black_teeth_buff': (900, 100, 300,220),
                   '1st_dead_mark': (370, 580, 50, 50),
                   '2nd_dead_mark': (560, 580, 50, 50),
@@ -795,8 +797,10 @@ while datetime.now().hour != 4:  # end on 04:00 am
                             battle_is_running = False
                             print('some pets counts running wrong!')
                     pass
-            else:
+            elif not is_it_found('bite_cooling') or current_pet != 2:
                 key_2_sent(str(battle_action.get(current_pet)[2]))
+            else:
+                key_2_sent(str(battle_action.get(current_pet)[0]))
 
         else:
             if battle_action.get(current_pet) is not None:
