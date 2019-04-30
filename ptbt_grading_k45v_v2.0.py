@@ -364,12 +364,14 @@ def load_battle(enemy):
     sleep(1200, 1500)
     key_2_sent('y')  # y is the start battle key
     sleep(1500, 2000)
-    end = time.time() + 6 * TIME_ADJ * 1
+    end = time.time() + 6 * 1
     fd = None
     while time.time() < end:
         fd = is_it_found('vs_image')
         if fd is not None:
             break
+        key_2_sent('y')
+        sleep(1000, 1200)
     return fd
 
 
@@ -537,6 +539,7 @@ check_image = {'level23': 'level23.png',
                'dead_icon_on_pet_menu2': 'dead_icon_on_pet_menu.png',
                'dead_icon_on_pet_menu3': 'dead_icon_on_pet_menu.png',
                'rush_cooling': 'rush_cooling.png',
+               'rush_ok': 'rush_ok.png',
                'bite_cooling': 'bite_cooling.png'
                }
 if os.path.basename(__file__) == 'ptbt.py':
@@ -574,12 +577,12 @@ else:
                   'revival_c_key': (270, 650, 50, 50),
                   'black_teeth_2':  (410, 680, 100, 100),
                   'black_teeth_3': (470, 670, 100, 100),
-                  'rush_cooling': (370, 680, 100, 100),
                   '2nd_pet_feature': (470, 670, 100, 100),
                   '2nd_pet_feature_beta': (470, 670, 100, 100),
                   '3rd_pet_feature': (410, 680, 100, 100),
                   '1st_pet_feature': (470, 670, 100, 100),
-                  'rush_cooling': (350, 670, 200, 100),
+                  'rush_cooling': (350, 670, 100, 100),
+                  'rush_ok': (350, 670, 100, 100),
                   'bite_cooling': (470, 670, 100, 100),
                   'black_teeth_buff': (900, 100, 300,220),
                   '1st_dead_mark': (370, 580, 50, 50),
@@ -711,7 +714,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
         print('current PET = ' + str(current_pet))
         if is_debuffed():
             time.sleep(3)
-            if not is_it_found('rush_cooling'):
+            if is_it_found('rush_ok'):
                 if debug_voice:
                     engine.say('可以冲锋')
                     engine.runAndWait()
