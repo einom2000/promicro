@@ -574,7 +574,7 @@ else:
                   'revival_c_key': (270, 650, 50, 50),
                   'black_teeth_2':  (410, 680, 100, 100),
                   'black_teeth_3': (470, 670, 100, 100),
-                  'rush_3': (370, 680, 100, 100),
+                  'rush_cooling': (370, 680, 100, 100),
                   '2nd_pet_feature': (470, 670, 100, 100),
                   '2nd_pet_feature_beta': (470, 670, 100, 100),
                   '3rd_pet_feature': (410, 680, 100, 100),
@@ -712,6 +712,9 @@ while datetime.now().hour != 4:  # end on 04:00 am
         if is_debuffed():
             time.sleep(3)
             if not is_it_found('rush_cooling'):
+                if debug_voice:
+                    engine.say('可以冲锋')
+                    engine.runAndWait()
                 key_2_sent(str(battle_action.get(current_pet)[1]))
                 sleep(12000 * TIME_ADJ, 13000 * TIME_ADJ)
                 result = check_for_attack_result()
@@ -798,9 +801,15 @@ while datetime.now().hour != 4:  # end on 04:00 am
                             print('some pets counts running wrong!')
                     pass
             elif not is_it_found('bite_cooling') or current_pet != 2:
+                if debug_voice:
+                    engine.say('不可冲锋')
+                    engine.runAndWait()
                 key_2_sent(str(battle_action.get(current_pet)[2]))
             else:
                 key_2_sent(str(battle_action.get(current_pet)[0]))
+                if debug_voice:
+                    engine.say('攻击技能全部冷却中')
+                    engine.runAndWait()
 
         else:
             if battle_action.get(current_pet) is not None:
