@@ -610,7 +610,7 @@ find_wow_window()
 print('press ctrl to start')
 engine.say('请按CONTROL键开始')
 engine.runAndWait()
-debug_voice = True
+debug_voice = False
 
 while not keyboard.is_pressed('ctrl'):
     pass
