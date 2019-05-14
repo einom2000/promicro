@@ -1,281 +1,496 @@
-06:47:39,87 root INFO Program starts!
-06:47:41,329 root INFO wow window was set to the up left corner
-06:47:45,538 root INFO ctrl key was pressed, loop begins!
-06:48:09,764 root INFO battle start!
-06:48:54,60 root INFO change to next one
-06:56:05,825 root INFO battle time too long, let us yielding!
-06:56:44,237 root INFO battle start!
-06:57:55,777 root INFO battle start!
-06:58:31,576 root INFO bb is dead, change to next one
-06:59:59,804 root INFO change to next one
-07:00:45,46 root INFO battle start!
-07:02:02,157 root INFO battle start!
-07:04:04,431 root INFO revivaled all.
-07:04:25,827 root INFO battle start!
-07:05:30,447 root INFO all dead! sleep 386.84680104255676 seconds to revival.
-07:21:15,773 root INFO battle start!
-07:29:24,974 root INFO battle start!
-07:30:09,527 root INFO change to next one
-07:30:45,960 root INFO change to next one
-07:31:44,557 root INFO change to next one
-07:32:39,478 root INFO battle start!
-07:33:45,870 root INFO battle start!
-07:34:42,571 root INFO battle start!
-07:35:30,730 root INFO change to next one
-07:36:18,436 root INFO change to next one
-07:37:26,660 root INFO battle start!
-07:38:28,677 root INFO battle start!
-07:39:14,395 root INFO change to next one
-07:40:04,968 root INFO change to next one
-07:41:05,513 root INFO battle start!
-07:42:12,746 root INFO battle start!
-07:43:20,194 root INFO battle start!
-07:44:32,631 root INFO battle start!
-07:45:11,883 root INFO bb is dead, change to next one
-07:46:25,443 root INFO change to next one
-07:47:08,872 root INFO battle start!
-07:48:11,710 root INFO battle start!
-07:48:56,832 root INFO change to next one
-07:49:44,828 root INFO change to next one
-07:50:51,135 root INFO battle start!
-07:51:59,886 root INFO battle start!
-07:52:56,883 root INFO battle start!
-07:53:41,412 root INFO change to next one
-07:54:31,75 root INFO change to next one
-07:55:37,589 root INFO battle start!
-07:56:36,422 root INFO battle start!
-07:57:22,912 root INFO change to next one
-07:58:14,368 root INFO change to next one
-07:59:24,763 root INFO battle start!
-08:00:04,453 root INFO bb is dead, change to next one
-08:01:19,542 root INFO change to next one
-08:01:59,461 root INFO battle start!
-08:02:56,129 root INFO battle start!
-08:03:39,413 root INFO change to next one
-08:04:58,746 root INFO battle start!
-08:05:57,579 root INFO battle start!
-08:06:43,756 root INFO change to next one
-08:07:32,742 root INFO change to next one
-08:08:37,548 root INFO battle start!
-08:09:43,180 root INFO battle start!
-08:10:53,739 root INFO battle start!
-08:11:54,55 root INFO battle start!
-08:12:38,29 root INFO change to next one
-08:13:16,578 root INFO change to next one
-08:14:30,108 root INFO battle start!
-08:15:38,366 root INFO battle start!
-08:16:48,187 root INFO battle start!
-08:17:46,193 root INFO battle start!
-08:18:28,931 root INFO change to next one
-08:19:06,750 root INFO change to next one
-08:20:14,681 root INFO battle start!
-08:21:00,568 root INFO change to next one
-08:21:49,14 root INFO change to next one
-08:22:59,959 root INFO battle start!
-08:23:43,5 root INFO change to next one
-08:24:35,34 root INFO battle start!
-08:25:45,607 root INFO battle start!
-08:26:20,585 root INFO bb is dead, change to next one
-08:27:21,38 root INFO battle start!
-08:28:20,129 root INFO the other 2 are dead, fight with this one again
-08:28:53,883 root INFO battle start!
-08:31:05,290 root INFO revivaled all.
-08:31:26,368 root INFO battle start!
-08:32:38,107 root INFO battle start!
-08:33:43,570 root INFO battle start!
-08:34:49,856 root INFO battle start!
-08:35:58,334 root INFO battle start!
-08:37:04,621 root INFO battle start!
-08:37:50,445 root INFO change to next one
-08:38:38,947 root INFO change to next one
-08:45:00,599 root INFO battle time too long, let us yielding!
-08:45:40,756 root INFO battle start!
-08:46:53,960 root INFO battle start!
-08:48:03,796 root INFO battle start!
-08:49:13,692 root INFO battle start!
-08:49:51,846 root INFO bb is dead, change to next one
-08:50:52,661 root INFO change to next one
-08:51:15,20 root INFO the other 2 are dead, fight with this one again
-08:53:38,444 root INFO revivaled all.
-08:53:56,746 root INFO battle start!
-08:54:39,231 root INFO change to next one
-08:55:30,712 root INFO change to next one
-08:56:36,297 root INFO battle start!
-08:57:20,801 root INFO change to next one
-08:57:42,209 root INFO bb is dead, change to next one
-08:58:41,146 root INFO battle start!
-08:59:24,696 root INFO change to the last one
-09:06:33,153 root INFO battle time too long, let us yielding!
-09:07:09,18 root INFO battle start!
-09:07:52,208 root INFO change to next one
-09:08:39,981 root INFO change to next one
-09:09:43,86 root INFO battle start!
-09:10:26,193 root INFO change to next one
-09:11:14,815 root INFO change to next one
-09:12:16,119 root INFO battle start!
-09:13:00,340 root INFO change to next one
-09:13:39,172 root INFO change to next one
-09:14:51,994 root INFO battle start!
-09:16:00,448 root INFO battle start!
-09:17:10,523 root INFO battle start!
-09:18:08,598 root INFO battle start!
-09:18:53,538 root INFO change to next one
-09:19:42,871 root INFO change to next one
-09:20:49,154 root INFO battle start!
-09:21:58,103 root INFO battle start!
-09:22:55,446 root INFO battle start!
-09:23:37,521 root INFO bb is dead, change to next one
-09:24:13,126 root INFO change to next one
-09:25:27,569 root INFO battle start!
-09:26:11,606 root INFO change to next one
-09:27:01,338 root INFO change to next one
-09:28:02,733 root INFO battle start!
-09:28:48,817 root INFO change to next one
-09:29:42,261 root INFO change to next one
-09:30:40,534 root INFO battle start!
-09:31:41,826 root INFO battle start!
-09:32:28,71 root INFO change to next one
-09:33:17,390 root INFO change to next one
-09:34:23,148 root INFO battle start!
-09:35:32,328 root INFO battle start!
-09:36:32,836 root INFO battle start!
-09:37:29,468 root INFO change to next one
-09:38:04,88 root INFO change to next one
-09:38:30,101 root INFO change to next one
-09:39:45,879 root INFO battle start!
-09:40:29,421 root INFO change to next one
-09:41:18,8 root INFO change to next one
-09:43:20,909 root INFO battle start!
-09:44:05,540 root INFO change to next one
-09:44:53,689 root INFO change to next one
-09:45:51,442 root INFO battle start!
-09:46:53,182 root INFO battle start!
-09:47:38,511 root INFO change to next one
-09:48:28,294 root INFO change to next one
-09:49:29,297 root INFO battle start!
-09:50:12,745 root INFO change to next one
-09:50:50,247 root INFO change to next one
-09:51:53,274 root INFO battle start!
-09:52:39,8 root INFO change to next one
-09:53:16,424 root INFO change to next one
-09:54:15,29 root INFO battle start!
-09:55:27,526 root INFO battle start!
-09:56:35,190 root INFO battle start!
-09:57:40,872 root INFO battle start!
-09:58:19,517 root INFO bb is dead, change to next one
-09:58:53,428 root INFO change to next one
-10:00:13,791 root INFO battle start!
-10:01:11,301 root INFO battle start!
-10:01:54,320 root INFO change to next one
-10:02:42,949 root INFO change to next one
-10:03:37,787 root INFO battle start!
-10:04:45,652 root INFO battle start!
-10:05:48,959 root INFO battle start!
-10:06:32,869 root INFO change to next one
-10:07:13,368 root INFO change to next one
-10:08:24,252 root INFO battle start!
-10:09:31,743 root INFO battle start!
-10:10:14,699 root INFO change to next one
-10:11:06,100 root INFO change to next one
-10:11:52,225 root INFO battle start!
-10:12:36,292 root INFO change to next one
-10:13:28,1 root INFO change to next one
-10:14:38,487 root INFO battle start!
-10:15:41,910 root INFO battle start!
-10:16:25,992 root INFO change to next one
-10:17:16,635 root INFO change to next one
-10:18:09,913 root INFO battle start!
-10:18:55,524 root INFO change to next one
-10:19:50,676 root INFO battle start!
-10:21:01,861 root INFO battle start!
-10:22:08,530 root INFO battle start!
-10:23:05,242 root INFO battle start!
-10:23:47,86 root INFO change to next one
-10:24:35,948 root INFO change to next one
-10:25:14,733 root INFO change to next one
-10:26:26,490 root INFO battle start!
-10:27:13,570 root INFO change to next one
-10:28:06,234 root INFO change to next one
-10:29:22,853 root INFO battle start!
-10:30:35,633 root INFO battle start!
-10:31:45,9 root INFO battle start!
-10:32:53,106 root INFO battle start!
-10:33:29,949 root INFO bb is dead, change to next one
-10:34:44,440 root INFO change to next one
-10:35:17,244 root INFO battle start!
-10:36:03,645 root INFO change to next one
-10:36:53,691 root INFO change to next one
-10:37:44,723 root INFO battle start!
-10:38:27,252 root INFO change to next one
-10:39:14,371 root INFO change to next one
-10:39:40,794 root INFO change to next one
-10:40:45,909 root INFO battle start!
-10:41:31,869 root INFO change to next one
-10:42:31,530 root INFO change to next one
-10:43:32,220 root INFO battle start!
-10:44:30,553 root INFO battle start!
-10:45:13,827 root INFO change to next one
-10:45:57,622 root INFO change to next one
-10:46:25,569 root INFO change to next one
-10:47:20,882 root INFO battle start!
-10:48:07,610 root INFO change to next one
-10:55:09,284 root INFO battle time too long, let us yielding!
-10:55:38,840 root INFO battle start!
-10:56:24,573 root INFO change to next one
-10:57:15,194 root INFO change to next one
-10:58:14,644 root INFO battle start!
-10:58:56,595 root INFO change to next one
-10:59:33,915 root INFO change to next one
-11:00:33,77 root INFO battle start!
-11:01:11,771 root INFO bb is dead, change to next one
-11:02:19,656 root INFO change to next one
-11:03:51,335 root INFO revivaled all.
-11:04:06,376 root INFO battle start!
-11:04:51,835 root INFO change to next one
-11:05:40,319 root INFO change to next one
-11:06:45,142 root INFO battle start!
-11:07:31,375 root INFO change to next one
-11:08:14,274 root INFO battle start!
-11:09:12,334 root INFO battle start!
-11:09:56,695 root INFO change to next one
-11:10:44,797 root INFO change to next one
-11:11:40,931 root INFO battle start!
-11:12:25,53 root INFO change to next one
-11:12:50,315 root INFO bb is dead, change to next one
-11:13:17,906 root INFO change to next one
-11:14:16,673 root INFO battle start!
-11:15:00,360 root INFO change to next one
-11:15:50,906 root INFO change to next one
-11:16:56,520 root INFO battle start!
-11:17:40,748 root INFO change to next one
-11:18:01,12 root INFO bb is dead, change to next one
-11:18:47,260 root INFO battle start!
-11:19:31,422 root INFO change to the last one
-11:20:21,681 root INFO change to next one
-11:20:58,906 root INFO change to the last one
-11:22:06,586 root INFO battle start!
-11:22:49,756 root INFO change to next one
-11:23:09,449 root INFO change to next one
-11:23:49,94 root INFO battle start!
-11:24:48,175 root INFO battle start!
-11:25:31,559 root INFO change to next one
-11:26:23,286 root INFO change to next one
-11:27:33,872 root INFO battle start!
-11:28:34,560 root INFO battle start!
-11:29:18,985 root INFO change to next one
-11:29:58,883 root INFO change to next one
-11:31:04,919 root INFO battle start!
-11:31:39,523 root INFO bb is dead, change to next one
-11:32:41,899 root INFO battle start!
-11:33:27,231 root INFO change to next one
-11:34:07,423 root INFO battle start!
-11:35:14,757 root INFO battle start!
-11:36:23,783 root INFO battle start!
-11:37:01,612 root INFO bb is dead, change to next one
-11:38:01,590 root INFO change to next one
-11:38:23,951 root INFO the other 2 are dead, fight with this one again
-11:40:03,35 root INFO revivaled all.
-11:40:14,488 root INFO battle start!
-11:40:56,693 root INFO change to next one
-11:41:50,275 root INFO change to next one
-11:42:35,522 root INFO all dead! sleep 319.82570719718933 seconds to revival.
+18:56:11,515 root INFO Program starts!
+18:56:17,715 root INFO wow window was set to the up left corner
+18:58:08,723 root INFO ctrl key was pressed, loop begins!
+18:58:26,589 root INFO battle start!
+18:59:07,879 root INFO change to next one
+18:59:32,186 root INFO change to next one
+19:00:28,920 root INFO change to next one
+19:01:38,16 root INFO battle start!
+19:02:33,393 root INFO battle start!
+19:03:18,285 root INFO change to next one
+19:03:55,262 root INFO change to next one
+19:04:49,195 root INFO battle start!
+19:05:32,454 root INFO change to next one
+19:06:11,802 root INFO change to next one
+19:06:51,313 root INFO change to next one
+19:07:10,465 root INFO bb is dead, change to next one
+19:10:10,823 root INFO battle start!
+19:11:21,148 root INFO battle start!
+19:12:29,206 root INFO battle start!
+19:13:34,285 root INFO battle start!
+19:14:42,601 root INFO battle start!
+19:15:20,911 root INFO bb is dead, change to next one
+19:16:41,619 root INFO change to next one
+19:17:03,547 root INFO the other 2 are dead, fight with this one again
+19:17:24,909 root INFO revivaled all.
+19:17:45,137 root INFO revivaled all.
+19:17:57,463 root INFO battle start!
+19:18:42,315 root INFO change to next one
+19:19:44,478 root INFO change to next one
+19:20:46,893 root INFO battle start!
+19:21:32,11 root INFO change to next one
+19:22:07,107 root INFO change to next one
+19:22:47,725 root INFO change to next one
+19:23:42,23 root INFO battle start!
+19:24:52,154 root INFO battle start!
+19:25:50,345 root INFO battle start!
+19:26:34,156 root INFO change to next one
+19:27:12,136 root INFO change to next one
+19:27:59,758 root INFO bb is dead, change to next one
+19:28:40,854 root INFO battle start!
+19:29:50,88 root INFO battle start!
+19:30:46,838 root INFO battle start!
+19:31:35,610 root INFO change to next one
+19:32:25,452 root INFO change to next one
+19:33:35,707 root INFO battle start!
+19:34:40,639 root INFO battle start!
+19:35:23,855 root INFO change to next one
+19:36:15,53 root INFO change to next one
+19:37:13,674 root INFO battle start!
+19:37:55,957 root INFO change to next one
+19:38:44,478 root INFO change to next one
+19:39:39,16 root INFO battle start!
+19:40:37,617 root INFO battle start!
+19:41:22,566 root INFO change to next one
+19:42:11,141 root INFO change to next one
+19:42:50,370 root INFO change to next one
+19:43:43,318 root INFO battle start!
+19:44:54,489 root INFO battle start!
+19:46:04,730 root INFO battle start!
+19:47:06,916 root INFO battle start!
+19:47:50,317 root INFO change to next one
+19:48:38,907 root INFO change to next one
+19:49:49,976 root INFO battle start!
+19:50:29,856 root INFO bb is dead, change to next one
+19:51:44,557 root INFO change to next one
+19:52:06,966 root INFO the other 2 are dead, fight with this one again
+19:53:46,858 root INFO revivaled all.
+19:54:08,702 root INFO battle start!
+19:55:18,50 root INFO battle start!
+19:56:27,615 root INFO battle start!
+19:57:27,375 root INFO battle start!
+19:58:13,708 root INFO change to next one
+19:59:08,145 root INFO change to next one
+20:00:13,755 root INFO battle start!
+20:00:50,789 root INFO bb is dead, change to next one
+20:02:04,395 root INFO change to next one
+20:03:07,412 root INFO battle start!
+20:04:17,697 root INFO battle start!
+20:05:26,985 root INFO battle start!
+20:06:36,487 root INFO battle start!
+20:07:45,959 root INFO battle start!
+20:08:05,469 root INFO bb is dead, change to next one
+20:08:39,559 root INFO change to next one
+20:09:23,995 root INFO battle start!
+20:10:33,420 root INFO battle start!
+20:11:41,715 root INFO battle start!
+20:12:49,631 root INFO battle start!
+20:13:58,538 root INFO battle start!
+20:15:05,81 root INFO battle start!
+20:15:44,595 root INFO bb is dead, change to next one
+20:17:07,22 root INFO change to next one
+20:17:29,324 root INFO the other 2 are dead, fight with this one again
+20:19:51,827 root INFO revivaled all.
+20:20:19,945 root INFO battle start!
+20:21:27,28 root INFO battle start!
+20:22:34,569 root INFO battle start!
+20:23:43,734 root INFO battle start!
+20:24:51,216 root INFO battle start!
+20:25:29,538 root INFO bb is dead, change to next one
+20:27:06,327 root INFO battle start!
+20:28:08,348 root INFO battle start!
+20:29:03,731 root INFO the other 2 are dead, fight with this one again
+20:44:51,948 root INFO battle start!
+20:46:02,150 root INFO battle start!
+20:47:10,404 root INFO battle start!
+20:48:08,832 root INFO battle start!
+20:48:52,6 root INFO change to next one
+20:49:31,752 root INFO change to next one
+20:50:48,661 root INFO battle start!
+20:51:22,415 root INFO bb is dead, change to next one
+20:52:20,817 root INFO battle start!
+20:53:20,991 root INFO the other 2 are dead, fight with this one again
+21:02:07,753 root INFO battle start!
+21:03:18,252 root INFO battle start!
+21:04:26,745 root INFO battle start!
+21:05:35,155 root INFO battle start!
+21:06:33,653 root INFO battle start!
+21:07:20,526 root INFO change to next one
+21:08:09,567 root INFO change to next one
+21:09:25,363 root INFO battle start!
+21:10:00,512 root INFO bb is dead, change to next one
+21:11:14,417 root INFO change to next one
+21:12:00,199 root INFO battle start!
+21:13:07,851 root INFO battle start!
+21:14:17,621 root INFO battle start!
+21:15:27,169 root INFO battle start!
+21:16:07,481 root INFO bb is dead, change to next one
+21:17:40,695 root INFO change to next one
+21:19:14,730 root INFO revivaled all.
+21:19:26,770 root INFO battle start!
+21:20:10,245 root INFO change to next one
+21:21:03,238 root INFO change to next one
+21:21:35,81 root INFO revivaled all.
+21:21:56,817 root INFO battle start!
+21:23:04,389 root INFO battle start!
+21:24:04,462 root INFO battle start!
+21:24:48,573 root INFO change to next one
+21:25:37,278 root INFO change to next one
+21:26:44,884 root INFO battle start!
+21:27:24,345 root INFO bb is dead, change to next one
+21:28:52,315 root INFO change to next one
+21:29:14,523 root INFO the other 2 are dead, fight with this one again
+21:29:48,969 root INFO battle start!
+21:30:49,250 root INFO battle start!
+21:31:57,638 root INFO battle start!
+21:33:04,153 root INFO battle start!
+21:34:11,193 root INFO battle start!
+21:34:50,328 root INFO bb is dead, change to next one
+21:36:11,772 root INFO change to next one
+21:36:34,572 root INFO the other 2 are dead, fight with this one again
+21:37:17,495 root INFO battle start!
+21:38:00,589 root INFO change to next one
+21:38:52,940 root INFO battle start!
+21:40:01,861 root INFO battle start!
+21:41:10,464 root INFO battle start!
+21:42:20,663 root INFO battle start!
+21:43:28,487 root INFO battle start!
+21:43:47,284 root INFO bb is dead, change to next one
+21:44:21,483 root INFO change to next one
+21:44:57,726 root INFO battle start!
+21:45:41,28 root INFO change to next one
+21:46:31,205 root INFO change to the last one
+21:52:45,112 root INFO battle time too long, let us yielding!
+21:53:23,799 root INFO battle start!
+21:54:09,861 root INFO change to next one
+21:54:56,470 root INFO battle start!
+21:56:02,806 root INFO battle start!
+21:57:11,89 root INFO battle start!
+21:58:21,961 root INFO battle start!
+21:58:59,655 root INFO bb is dead, change to next one
+22:00:00,747 root INFO the other 2 are dead, fight with this one again
+22:01:26,55 root INFO revivaled all.
+22:01:47,9 root INFO battle start!
+22:02:55,838 root INFO battle start!
+22:04:07,705 root INFO battle start!
+22:04:47,530 root INFO bb is dead, change to next one
+22:06:01,716 root INFO change to next one
+22:06:24,368 root INFO the other 2 are dead, fight with this one again
+22:09:49,925 root INFO revivaled all.
+22:10:17,223 root INFO battle start!
+22:11:23,925 root INFO battle start!
+22:12:31,315 root INFO battle start!
+22:13:40,621 root INFO battle start!
+22:14:48,237 root INFO battle start!
+22:15:25,47 root INFO bb is dead, change to next one
+22:16:44,824 root INFO battle start!
+22:17:28,337 root INFO change to next one
+22:18:18,822 root INFO change to the last one
+22:24:32,591 root INFO battle time too long, let us yielding!
+22:25:12,492 root INFO battle start!
+22:26:24,918 root INFO battle start!
+22:27:08,822 root INFO change to next one
+22:27:52,910 root INFO battle start!
+22:29:02,460 root INFO battle start!
+22:29:39,2 root INFO bb is dead, change to next one
+22:30:40,148 root INFO change to next one
+22:31:02,399 root INFO the other 2 are dead, fight with this one again
+22:31:47,468 root INFO battle start!
+22:32:42,238 root INFO revivaled all.
+22:33:02,925 root INFO battle start!
+22:34:16,0 root INFO battle start!
+22:35:24,229 root INFO battle start!
+22:36:34,45 root INFO battle start!
+22:37:07,905 root INFO bb is dead, change to next one
+22:38:07,241 root INFO battle start!
+22:38:51,345 root INFO change to next one
+22:45:56,608 root INFO battle time too long, let us yielding!
+22:46:25,609 root INFO battle start!
+22:47:09,186 root INFO change to next one
+22:48:03,872 root INFO change to next one
+22:49:13,284 root INFO battle start!
+22:50:10,215 root INFO battle start!
+22:50:53,862 root INFO change to next one
+22:57:59,215 root INFO battle time too long, let us yielding!
+22:58:38,845 root INFO battle start!
+22:59:48,584 root INFO battle start!
+23:01:00,30 root INFO battle start!
+23:02:11,836 root INFO battle start!
+23:03:20,318 root INFO battle start!
+23:03:39,466 root INFO bb is dead, change to next one
+23:04:13,544 root INFO change to next one
+23:04:42,264 root INFO battle start!
+23:05:24,855 root INFO change to next one
+23:06:14,445 root INFO change to the last one
+23:12:29,987 root INFO battle time too long, let us yielding!
+23:12:59,990 root INFO battle start!
+23:13:45,107 root INFO change to next one
+23:14:46,529 root INFO change to next one
+23:15:54,750 root INFO battle start!
+23:17:02,682 root INFO battle start!
+23:18:09,406 root INFO battle start!
+23:19:08,563 root INFO battle start!
+23:19:47,916 root INFO bb is dead, change to next one
+23:20:22,215 root INFO change to next one
+23:21:31,323 root INFO battle start!
+23:22:16,817 root INFO change to next one
+23:23:05,702 root INFO change to next one
+23:23:54,792 root INFO battle start!
+23:24:39,216 root INFO change to next one
+23:25:29,278 root INFO change to next one
+23:26:41,814 root INFO battle start!
+23:27:49,388 root INFO battle start!
+23:28:59,435 root INFO battle start!
+23:30:01,254 root INFO battle start!
+23:30:47,772 root INFO change to next one
+23:31:38,312 root INFO change to next one
+23:32:38,762 root INFO battle start!
+23:33:23,422 root INFO change to next one
+23:34:13,176 root INFO change to next one
+23:35:23,181 root INFO battle start!
+23:36:09,806 root INFO change to next one
+23:36:26,286 root INFO bb is dead, change to next one
+23:37:23,380 root INFO battle start!
+23:38:33,534 root INFO battle start!
+23:39:43,162 root INFO battle start!
+23:40:51,617 root INFO battle start!
+23:41:58,798 root INFO battle start!
+23:42:32,426 root INFO bb is dead, change to next one
+23:43:29,322 root INFO battle start!
+23:44:30,720 root INFO battle start!
+23:45:41,974 root INFO battle start!
+23:46:24,263 root INFO change to next one
+23:46:44,120 root INFO change to next one
+23:47:32,30 root INFO battle start!
+23:48:40,339 root INFO battle start!
+23:49:45,674 root INFO battle start!
+23:50:54,553 root INFO battle start!
+23:52:04,275 root INFO battle start!
+23:53:13,815 root INFO battle start!
+23:53:32,457 root INFO bb is dead, change to next one
+23:54:06,200 root INFO change to next one
+23:55:03,973 root INFO battle start!
+23:55:49,803 root INFO change to next one
+00:02:53,975 root INFO battle time too long, let us yielding!
+00:03:32,750 root INFO battle start!
+00:04:41,941 root INFO battle start!
+00:05:49,388 root INFO battle start!
+00:07:00,859 root INFO battle start!
+00:08:10,641 root INFO battle start!
+00:08:29,168 root INFO bb is dead, change to next one
+00:09:03,299 root INFO change to next one
+00:09:53,245 root INFO battle start!
+00:10:34,360 root INFO change to next one
+00:11:30,668 root INFO change to the last one
+00:17:43,690 root INFO battle time too long, let us yielding!
+00:18:21,702 root INFO battle start!
+00:19:04,287 root INFO change to next one
+00:19:58,576 root INFO battle start!
+00:21:10,559 root INFO battle start!
+00:22:16,326 root INFO battle start!
+00:23:24,949 root INFO battle start!
+00:24:33,408 root INFO battle start!
+00:25:07,977 root INFO bb is dead, change to next one
+00:25:44,208 root INFO change to next one
+00:27:02,878 root INFO battle start!
+00:28:11,341 root INFO battle start!
+00:29:21,321 root INFO battle start!
+00:30:30,448 root INFO battle start!
+00:31:08,963 root INFO bb is dead, change to next one
+00:32:09,901 root INFO change to next one
+00:32:31,621 root INFO the other 2 are dead, fight with this one again
+00:35:11,7 root INFO revivaled all.
+00:35:34,631 root INFO battle start!
+00:36:18,171 root INFO change to next one
+00:37:12,475 root INFO battle start!
+00:38:21,340 root INFO battle start!
+00:39:30,816 root INFO battle start!
+00:40:05,178 root INFO bb is dead, change to next one
+00:41:11,179 root INFO the other 2 are dead, fight with this one again
+00:42:51,206 root INFO revivaled all.
+00:43:12,979 root INFO battle start!
+00:43:57,707 root INFO change to next one
+00:44:39,707 root INFO revivaled all.
+00:44:51,43 root INFO battle start!
+00:45:36,605 root INFO change to next one
+00:46:27,789 root INFO change to next one
+00:47:02,680 root INFO change to next one
+00:47:47,156 root INFO battle start!
+00:48:31,997 root INFO change to next one
+00:49:05,119 root INFO battle start!
+00:49:48,915 root INFO change to next one
+00:50:37,466 root INFO change to next one
+00:51:44,803 root INFO battle start!
+00:52:52,187 root INFO battle start!
+00:53:27,221 root INFO bb is dead, change to next one
+00:54:38,334 root INFO battle start!
+00:55:29,384 root INFO change to next one
+00:56:22,815 root INFO change to next one
+00:57:20,763 root INFO battle start!
+00:58:30,581 root INFO battle start!
+00:59:39,927 root INFO battle start!
+01:00:16,108 root INFO bb is dead, change to next one
+01:01:23,755 root INFO change to next one
+01:02:01,928 root INFO revivaled all.
+01:02:22,864 root INFO battle start!
+01:03:32,577 root INFO battle start!
+01:04:35,732 root INFO battle start!
+01:05:44,444 root INFO battle start!
+01:06:57,153 root INFO battle start!
+01:08:05,813 root INFO battle start!
+01:08:48,913 root INFO change to next one
+01:09:08,350 root INFO change to next one
+01:10:07,528 root INFO battle start!
+01:10:52,362 root INFO change to next one
+01:11:44,216 root INFO change to next one
+01:12:56,711 root INFO battle start!
+01:14:06,25 root INFO battle start!
+01:15:12,155 root INFO battle start!
+01:16:24,18 root INFO battle start!
+01:17:32,591 root INFO battle start!
+01:18:11,787 root INFO bb is dead, change to next one
+01:19:40,962 root INFO battle start!
+01:20:23,798 root INFO change to next one
+01:27:28,950 root INFO battle time too long, let us yielding!
+01:28:07,713 root INFO battle start!
+01:28:51,880 root INFO change to next one
+01:29:46,782 root INFO battle start!
+01:30:58,954 root INFO battle start!
+01:32:05,100 root INFO battle start!
+01:33:12,90 root INFO battle start!
+01:33:52,597 root INFO bb is dead, change to next one
+01:35:37,56 root INFO battle start!
+01:36:24,446 root INFO change to next one
+01:37:17,29 root INFO battle start!
+01:38:27,571 root INFO battle start!
+01:39:34,859 root INFO battle start!
+01:40:45,135 root INFO battle start!
+01:41:19,623 root INFO bb is dead, change to next one
+01:42:21,847 root INFO change to next one
+01:42:44,153 root INFO the other 2 are dead, fight with this one again
+01:45:08,221 root INFO revivaled all.
+01:45:37,917 root INFO battle start!
+01:46:40,510 root INFO battle start!
+01:47:28,697 root INFO change to next one
+01:48:05,172 root INFO change to next one
+01:48:33,330 root INFO change to next one
+01:49:28,719 root INFO battle start!
+01:50:17,139 root INFO change to next one
+01:57:16,328 root INFO battle time too long, let us yielding!
+01:57:56,494 root INFO battle start!
+01:59:06,686 root INFO battle start!
+02:00:16,465 root INFO battle start!
+02:01:26,560 root INFO battle start!
+02:02:00,78 root INFO bb is dead, change to next one
+02:02:51,62 root INFO battle start!
+02:03:36,225 root INFO change to next one
+02:04:27,146 root INFO change to the last one
+02:10:40,48 root INFO battle time too long, let us yielding!
+02:11:19,704 root INFO battle start!
+02:12:28,240 root INFO battle start!
+02:13:12,830 root INFO change to next one
+02:14:04,159 root INFO change to next one
+02:15:10,301 root INFO battle start!
+02:16:22,816 root INFO battle start!
+02:17:02,664 root INFO bb is dead, change to next one
+02:18:30,52 root INFO change to next one
+02:19:15,67 root INFO battle start!
+02:20:24,933 root INFO battle start!
+02:21:33,720 root INFO battle start!
+02:22:45,382 root INFO battle start!
+02:23:54,140 root INFO battle start!
+02:25:01,706 root INFO battle start!
+02:25:36,164 root INFO bb is dead, change to next one
+02:26:52,209 root INFO change to next one
+02:27:07,823 root INFO the other 2 are dead, fight with this one again
+02:27:41,159 root INFO battle start!
+02:28:39,454 root INFO battle start!
+02:29:49,623 root INFO battle start!
+02:30:59,741 root INFO battle start!
+02:32:09,172 root INFO battle start!
+02:33:19,619 root INFO battle start!
+02:33:54,173 root INFO bb is dead, change to next one
+02:34:52,989 root INFO battle start!
+02:36:04,851 root INFO battle start!
+02:37:07,740 root INFO the other 2 are dead, fight with this one again
+02:41:30,68 root INFO wow window was set to the up left corner
+02:44:54,852 root INFO battle start!
+02:46:02,461 root INFO battle start!
+02:47:13,27 root INFO battle start!
+02:48:13,324 root INFO battle start!
+02:48:57,685 root INFO change to next one
+02:49:35,90 root INFO change to next one
+02:50:30,453 root INFO battle start!
+02:51:11,230 root INFO bb is dead, change to next one
+02:51:45,701 root INFO change to next one
+02:52:48,119 root INFO battle start!
+02:53:56,302 root INFO battle start!
+02:55:02,632 root INFO battle start!
+02:55:49,413 root INFO change to next one
+02:56:40,416 root INFO change to next one
+02:57:51,606 root INFO battle start!
+02:58:57,875 root INFO battle start!
+03:00:08,273 root INFO battle start!
+03:00:45,217 root INFO bb is dead, change to next one
+03:01:52,632 root INFO change to next one
+03:02:33,615 root INFO battle start!
+03:03:30,369 root INFO battle start!
+03:04:13,817 root INFO change to next one
+03:05:03,420 root INFO change to next one
+03:05:59,38 root INFO battle start!
+03:07:07,533 root INFO battle start!
+03:08:14,864 root INFO battle start!
+03:08:52,536 root INFO bb is dead, change to next one
+03:09:54,562 root INFO change to next one
+03:10:43,105 root INFO battle start!
+03:11:50,771 root INFO battle start!
+03:12:29,964 root INFO bb is dead, change to next one
+03:13:52,94 root INFO change to next one
+03:14:13,950 root INFO the other 2 are dead, fight with this one again
+03:18:40,2 root INFO revivaled all.
+03:19:04,680 root INFO battle start!
+03:19:47,117 root INFO change to next one
+03:20:35,887 root INFO change to next one
+03:21:24,543 root INFO change to next one
+03:21:58,437 root INFO battle start!
+03:22:41,530 root INFO change to next one
+03:23:33,516 root INFO change to next one
+03:24:48,219 root INFO battle start!
+03:25:53,785 root INFO battle start!
+03:27:07,86 root INFO battle start!
+03:28:17,437 root INFO battle start!
+03:29:24,466 root INFO battle start!
+03:30:22,456 root INFO battle start!
+03:31:06,462 root INFO change to next one
+03:31:54,820 root INFO change to next one
+03:33:04,63 root INFO battle start!
+03:33:42,931 root INFO bb is dead, change to next one
+03:34:57,338 root INFO change to next one
+03:35:43,4 root INFO battle start!
+03:36:42,316 root INFO battle start!
+03:37:26,735 root INFO change to next one
+03:38:05,360 root INFO change to next one
+03:39:10,213 root INFO battle start!
+03:40:17,855 root INFO battle start!
+03:41:14,703 root INFO battle start!
+03:41:59,340 root INFO change to next one
+03:42:49,297 root INFO change to next one
+03:43:49,41 root INFO battle start!
+03:44:58,80 root INFO battle start!
+03:45:41,423 root INFO change to next one
+03:46:35,845 root INFO battle start!
+03:47:15,941 root INFO bb is dead, change to next one
+03:48:16,842 root INFO change to next one
+03:48:39,99 root INFO the other 2 are dead, fight with this one again
+03:49:31,920 root INFO battle start!
+03:51:35,849 root INFO revivaled all.
+03:51:58,218 root INFO battle start!
+03:53:05,484 root INFO battle start!
+03:54:11,560 root INFO battle start!
+03:55:18,522 root INFO battle start!
+03:56:29,41 root INFO battle start!
+03:57:37,583 root INFO battle start!
+03:57:56,529 root INFO bb is dead, change to next one
+03:58:29,847 root INFO change to next one
+03:59:29,560 root INFO battle start!
+04:00:13,702 root INFO time is up! program end!

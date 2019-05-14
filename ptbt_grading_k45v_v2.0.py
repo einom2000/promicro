@@ -165,9 +165,11 @@ class LoginWindow:
                 continue
             else:
                 win32gui.MoveWindow(hwndbnt, 100, 100, 365, 541, True)
+                print(hwndbnt)
+                print(self.windowName)
             break
         win32gui.SetForegroundWindow(hwndbnt)
-        time.sleep(0.5)
+        time.sleep(1)
         return hwndbnt
 
     def login(self):
