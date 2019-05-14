@@ -23,6 +23,7 @@ from win32con import VK_CAPITAL
 import winshell, psutil
 engine = pyttsx3.init()
 
+# y is the start battle key
 # P is for pet setting window
 # z search the pet boss
 # x search the the mob
@@ -361,10 +362,9 @@ def sleep(millisecond1, millisecond2):
 
 def load_battle(enemy):
     key_2_sent(enemy)
-    sleep(1200, 1500)
+    sleep(300, 400)
     key_2_sent('y')  # y is the start battle key
-    sleep(1500, 2000)
-    end = time.time() + 6 * 1
+    end = time.time() + 3.5 * 1
     fd = None
     while time.time() < end:
         fd = is_it_found('vs_image')
@@ -645,6 +645,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
     battle_loaded = False
 
     check_pet_alive()
+    key_2_sent('k')
 
     left_pets = 0
     for i in range(3):
