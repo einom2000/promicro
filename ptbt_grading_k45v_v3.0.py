@@ -502,7 +502,7 @@ CONFI = 0.9
 
 
 # game parameters setup
-if os.path.basename(__file__) == 'ptbt_grading_k45v_v2.0.py':
+if os.path.basename(__file__) == 'ptbt_grading_k45v_v3.0.py':
     port = 'COM5'  # note I'm not using Mac OS-X
 elif os.path.basename(__file__) == 'ptbt_sur.py':
     port = 'COM3'
