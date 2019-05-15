@@ -244,8 +244,8 @@ def check_level():
 
 
 def check_pet_alive():
-    time.sleep(random.randint(2000, 3000) / 1000)
     key_2_sent('p')
+    time.sleep(random.randint(2000, 3000) / 1000)
     if pyautogui.locateOnScreen(check_image.get('dead_icon_on_pet_menu1'),
                                 region=check_cord.get('dead_icon_on_pet_menu1'),
                                 grayscale=False,
@@ -923,7 +923,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
             current_pet = 1
             if is_it_found('vs_image'):
                 key_2_sent('6')
-                sleep(1200 , 1600 )
+                sleep(2000, 3000)
                 key_2_sent('v')
                 sleep(14000 * TIME_ADJ, 16000 * TIME_ADJ)
         print(is_pets_alive)
