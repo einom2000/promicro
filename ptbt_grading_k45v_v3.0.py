@@ -23,6 +23,7 @@ from win32con import VK_CAPITAL
 import winshell, psutil
 engine = pyttsx3.init()
 
+# y is the start battle key
 # P is for pet setting window
 # z search the pet boss
 # x search the the mob
@@ -72,11 +73,13 @@ def is_off_line():
     while time.time() - start_t <= 60:
         found = pyautogui.locateCenterOnScreen('off_line_logo.png', region=OFF_LINE_LOGO_REGION,
                                                grayscale=False, confidence=0.9)
+        # found = 'this should be delete123NU'
         if found is not None:
             engine.say('掉线，重新连接')
             engine.runAndWait()
             break
     return found
+
 
 
 def kill_process(process_name, wd_name):
@@ -163,9 +166,11 @@ class LoginWindow:
                 continue
             else:
                 win32gui.MoveWindow(hwndbnt, 100, 100, 365, 541, True)
+                print(hwndbnt)
+                print(self.windowName)
             break
         win32gui.SetForegroundWindow(hwndbnt)
-        time.sleep(0.5)
+        time.sleep(1)
         return hwndbnt
 
     def login(self):
@@ -266,8 +271,7 @@ def check_pet_alive():
     key_2_sent('p')
     print('pet check: = ', end='')
     print(is_pets_alive)
-    sleep(1200 * TIME_ADJ, 1400 * TIME_ADJ)
-
+    sleep(1200, 1400)
 
 def check_for_attack_result():
     tm = time.time()
@@ -360,10 +364,9 @@ def sleep(millisecond1, millisecond2):
 
 def load_battle(enemy):
     key_2_sent(enemy)
-    sleep(1200, 1500)
+    sleep(300, 400)
     key_2_sent('y')  # y is the start battle key
-    sleep(1500, 2000)
-    end = time.time() + 6 * 1
+    end = time.time() + 3.5 * 1
     fd = None
     while time.time() < end:
         fd = is_it_found('vs_image')
@@ -418,23 +421,15 @@ def revival():
     if left_pets >= 2:
         return
 
-    while not is_it_found('revival_c_key') and is_it_found('vs_image'):
+    while not is_it_found('revival_c_key'):
         if debug_voice:
-            engine.say('剩余一个宠物，战斗到底')
+            engine.say('等待复活')
             engine.runAndWait()
         key_2_sent(str(k % 2 + 2))
         k += 1
         sleep(500, 800)
         check()
         pass
-    while not is_it_found('revival_c_key') and not is_it_found('vs_image'):
-        if debug_voice:
-            engine.say('等待复活冷却')
-            engine.runAndWait()
-        sleep(500, 800)
-        check()
-        pass
-
     key_2_sent('c')
     key_2_sent(' ')
     is_pets_alive = {1: True,
@@ -442,7 +437,7 @@ def revival():
                      3: True}
     logging.info('revivaled all.')
 
-    sleep(2000 * TIME_ADJ, 3000 * TIME_ADJ)
+    sleep(2000, 3000)
     last_revival_time = time.time()
     current_pet = 1
 
@@ -507,14 +502,13 @@ CONFI = 0.9
 
 
 # game parameters setup
-if os.path.basename(__file__) == 'ptbt_grading_k45v_v3.0.py':
+if os.path.basename(__file__) == 'ptbt_grading_k45v_v2.0.py':
     port = 'COM5'  # note I'm not using Mac OS-X
 elif os.path.basename(__file__) == 'ptbt_sur.py':
     port = 'COM3'
 else:
-    port = ''
-    print('Wrong file name found!')
-    sys.exit()
+    port = 'COM9'
+
 
 if port != '':
     ard = serial.Serial(port, 9600, timeout=5)
@@ -604,9 +598,9 @@ else:
                   'dead_icon_on_pet_menu3': (305, 490, 40, 40)
                   }
 
-battle_action = {1: (2, 1, 3),   # blackteeth, charge, bite0cooling
-                 2: (2, 1, 3),   # blackteeth, charge, bite3cooling
-                 3: (3, 1, 2)    # blackteeth, charge, bite0cooling
+battle_action = {1: (2, 1, 3),
+                 2: (2, 1, 3),
+                 3: (3, 1, 2)
                  }
 
 TIME_ADJ = 0.60
@@ -617,7 +611,7 @@ find_wow_window()
 print('press ctrl to start')
 engine.say('请按CONTROL键开始')
 engine.runAndWait()
-debug_voice = True
+debug_voice = False
 
 while not keyboard.is_pressed('ctrl'):
     pass
@@ -640,7 +634,6 @@ is_pets_alive = {1: True,
 while datetime.now().hour != 4:  # end on 04:00 am
     time.sleep(random.randint(2000, 4000) / 1000)
     # if revival key is ready to do the revival after at least 5 minutes
-# -------------------------routine check revival cooling-------------------------------
     if time.time() - last_revival_time >= 480:
         while not is_it_found('revival_c_key'): # not all dead but time is ok for it
             check()
@@ -648,11 +641,12 @@ while datetime.now().hour != 4:  # end on 04:00 am
         key_2_sent('c')
         sleep(500, 900)
         last_revival_time = time.time()
-# ------------ensure the battle only can be started with at least 2 pets alive-----------
+
     # loading battle
     battle_loaded = False
 
     check_pet_alive()
+    key_2_sent('k')
 
     left_pets = 0
     for i in range(3):
@@ -665,7 +659,11 @@ while datetime.now().hour != 4:  # end on 04:00 am
         speech = '现有' + str(left_pets) + '个活的宠物'
         engine.say(speech)
         engine.runAndWait()
-# ------------------------load battle--------------------------------------------------
+    if left_pets == 2:
+        start_pets = 2
+    else:
+        start_pets = 3
+
     while not battle_loaded:
         ld_battle = load_battle('x')
         if ld_battle is not None:
@@ -701,16 +699,23 @@ while datetime.now().hour != 4:  # end on 04:00 am
                         key_2_sent('c')
                         sleep(500, 900)
 
-# ---------------------------during the battle-----------------------------------------------
     # battle loop start
     battle_is_running = True
     logging.info('battle start!')
-    sleep(8000 * TIME_ADJ, 9000 * TIME_ADJ)
+    sleep(3000 * TIME_ADJ, 5000 * TIME_ADJ)
 
     battle_time = time.time()
 
     # count the pets alive
     while battle_is_running:
+
+        # check current pet
+        # check how many pet left before begin
+        # check how many are dead now
+        # first debuffed
+        # if rush is availalbe rush
+        # if rush is not available, to he rest action
+
         left_pets = 0
         for i in range(3):
             if is_pets_alive.get(i + 1):
@@ -728,7 +733,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
                     engine.say('可以冲锋')
                     engine.runAndWait()
                 key_2_sent(str(battle_action.get(current_pet)[1]))
-                sleep(12000 * TIME_ADJ, 13000 * TIME_ADJ)
+                sleep(6000 * TIME_ADJ, 7000 * TIME_ADJ)
                 result = check_for_attack_result()
                 # pets dead round
                 if result == 0:
@@ -739,7 +744,11 @@ while datetime.now().hour != 4:  # end on 04:00 am
                         next_pet = 1
                     if is_pets_alive.get(next_pet):
                         current_pet = next_pet
-                        key_2_sent(str(current_pet))
+                        if start_pets == 2:
+                            sent_pet_key = current_pet -1
+                        else:
+                            sent_pet_key = current_pet
+                        key_2_sent(str(sent_pet_key))
                         sleep(500, 800)
                         logging.info('bb is dead, change to next one')
                         print('bb is dead, change to next one')
@@ -749,7 +758,11 @@ while datetime.now().hour != 4:  # end on 04:00 am
                             next_pet = 1
                         if is_pets_alive.get(next_pet):
                             current_pet = next_pet
-                            key_2_sent(str(current_pet))
+                            if start_pets == 2:
+                                sent_pet_key = current_pet - 1
+                            else:
+                                sent_pet_key = current_pet
+                            key_2_sent(str(sent_pet_key))
                             sleep(500, 800)
                             logging.info('2 bbs are dead, change to the last one')
                             print('2 bbs are dead, change to the last one')
@@ -773,7 +786,11 @@ while datetime.now().hour != 4:  # end on 04:00 am
                         next_pet = 1
                     if is_pets_alive.get(next_pet):
                         current_pet = next_pet
-                        key_2_sent(str(current_pet))
+                        if start_pets == 2:
+                            sent_pet_key = current_pet -1
+                        else:
+                            sent_pet_key = current_pet
+                        key_2_sent(str(sent_pet_key))
                         sleep(500, 800)
                         logging.info('change to next one')
                         print('change to next one')
@@ -783,7 +800,11 @@ while datetime.now().hour != 4:  # end on 04:00 am
                             next_pet = 1
                         if is_pets_alive.get(next_pet):
                             current_pet = next_pet
-                            key_2_sent(str(current_pet))
+                            if start_pets == 2:
+                                sent_pet_key = current_pet - 1
+                            else:
+                                sent_pet_key = current_pet
+                            key_2_sent(str(sent_pet_key))
                             sleep(500, 800)
                             logging.info('change to the last one')
                             print('change to the last one')
@@ -826,7 +847,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
         else:
             if battle_action.get(current_pet) is not None:
                 key_2_sent(str(battle_action.get(current_pet)[0]))
-                sleep(12000 * TIME_ADJ, 13000 * TIME_ADJ)
+                sleep(2000 * TIME_ADJ, 3000 * TIME_ADJ)
                 result = check_for_attack_result()
                 # pets dead round
                 if result == 0:
@@ -837,7 +858,11 @@ while datetime.now().hour != 4:  # end on 04:00 am
                         next_pet = 1
                     if is_pets_alive.get(next_pet):
                         current_pet = next_pet
-                        key_2_sent(str(current_pet))
+                        if start_pets == 2:
+                            sent_pet_key = current_pet -1
+                        else:
+                            sent_pet_key = current_pet
+                        key_2_sent(str(sent_pet_key))
                         sleep(500, 800)
                         logging.info('bb is dead, change to next one')
                         print('bb is dead, change to next one')
@@ -847,7 +872,11 @@ while datetime.now().hour != 4:  # end on 04:00 am
                             next_pet = 1
                         if is_pets_alive.get(next_pet):
                             current_pet = next_pet
-                            key_2_sent(str(current_pet))
+                            if start_pets == 2:
+                                sent_pet_key = current_pet - 1
+                            else:
+                                sent_pet_key = current_pet
+                            key_2_sent(str(sent_pet_key))
                             sleep(500, 800)
                             logging.info('2 bbs are dead, change to the last one')
                             print('2 bbs are dead, change to the last one')

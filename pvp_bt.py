@@ -23,34 +23,12 @@ from win32con import VK_CAPITAL
 import winshell, psutil
 engine = pyttsx3.init()
 
-# y is the start battle key
-# P is for pet setting window
-# z search the pet boss
-# x search the the mob
-# c revival key
-# v for confirmation button
-# level of the first baby (329,328)(340,340)
-# vs image (627, 44)(668, 69)
-# round_end image (602, 646) (698, 677)
-# dead_choose image (399, 697)(558, 733)
-# revival button image (642, 71)(677, 109))
-# revival c key button image (274, 657) (299, 687)
-# black_teeth_2.png (432, 685)(481, 737)
-# black_teeth_3.png (490, 687) (535, 734)
-# rush_3.png (373, 687) (419, 735)
-# add keyboard.release(all) in arduino
-# rematch upleveling team auto
-
-logging.basicConfig(filename='leveling.log',
-                    filemode='w',
-                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                    datefmt='%H:%M:%S',
-                    level=logging.DEBUG
-                    )
-logging.info('Program starts!')
-
-
-
+# P is for pvp searching panel
+# x for /tar 加布里埃尔元帅
+# 7 for /ra 都是挂， 我不打了
+# 8 target enemy macro
+# 1 attack
+# if you make any harm, will keep in team
 
 def enumhandler(hwnd, lParam):
     # enumwindows' callback function
@@ -78,7 +56,6 @@ def is_off_line():
             engine.runAndWait()
             break
     return found
-
 
 
 def kill_process(process_name, wd_name):
@@ -165,11 +142,9 @@ class LoginWindow:
                 continue
             else:
                 win32gui.MoveWindow(hwndbnt, 100, 100, 365, 541, True)
-                print(hwndbnt)
-                print(self.windowName)
             break
         win32gui.SetForegroundWindow(hwndbnt)
-        time.sleep(1)
+        time.sleep(0.5)
         return hwndbnt
 
     def login(self):
@@ -272,6 +247,7 @@ def check_pet_alive():
     print(is_pets_alive)
     sleep(1200, 1400)
 
+
 def check_for_attack_result():
     tm = time.time()
     while True:
@@ -363,16 +339,15 @@ def sleep(millisecond1, millisecond2):
 
 def load_battle(enemy):
     key_2_sent(enemy)
-    sleep(300, 400)
+    sleep(1200, 1500)
     key_2_sent('y')  # y is the start battle key
-    end = time.time() + 3.5 * 1
+    sleep(1500, 2000)
+    end = time.time() + 6 * TIME_ADJ * 1
     fd = None
     while time.time() < end:
         fd = is_it_found('vs_image')
         if fd is not None:
             break
-        key_2_sent('y')
-        sleep(1000, 1200)
     return fd
 
 
@@ -501,9 +476,9 @@ CONFI = 0.9
 
 
 # game parameters setup
-if os.path.basename(__file__) == 'ptbt_grading_k45v_v2.0.py':
-    port = 'COM5'  # note I'm not using Mac OS-X
-elif os.path.basename(__file__) == 'ptbt_sur.py':
+if os.path.basename(__file__) == 'pvp_bt.py':
+    port = 'COM9'  # note I'm not using Mac OS-X
+elif os.path.basename(__file__) == 'pvp_bt_k45v.py':
     port = 'COM3'
 else:
     port = ''
@@ -514,104 +489,33 @@ if port != '':
     ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2)  # wait for arduino
 
-check_image = {'level23': 'level23.png',
-               'level24': 'level24.png',
-               'level25': 'level25.png',
-               'vs_image': 'vs_image.png',
-               'round_end': 'round_end.png',
-               'dead_choose': 'dead_choose.png',
-               'revival_c_key': 'revival_c_key.png',
-               'black_teeth_2': 'black_teeth_2.png',
-               'black_teeth_3': 'black_teeth_3.png',
-               'rush_3': 'rush_3.png',
-               '2nd_pet_feature': '2nd_pet_feature.png',
-               '2nd_pet_feature_beta': 'bite_cooling.png',
-               '3rd_pet_feature': '3rd_pet_feature.png',
-               '1st_pet_feature': '1st_pet_feature.png',
-               'black_teeth_buff': 'black_teeth_buff.png',
-               '1st_dead_mark': 'dead_mark.png',
-               '2nd_dead_mark': 'dead_mark.png',
-               '3rd_dead_mark': 'dead_mark.png',
-               'up_dead_icon1': 'up_dead_icon.png',
-               'up_dead_icon2': 'up_dead_icon.png',
-               'up_vacant_icon1': 'up_vacant_icon.png',
-               'up_vacant_icon2': 'up_vacant_icon.png',
-               'dead_icon_on_pet_menu1': 'dead_icon_on_pet_menu.png',
-               'dead_icon_on_pet_menu2': 'dead_icon_on_pet_menu.png',
-               'dead_icon_on_pet_menu3': 'dead_icon_on_pet_menu.png',
-               'rush_cooling': 'rush_cooling.png',
-               'rush_ok': 'rush_ok.png',
-               'bite_cooling': 'bite_cooling.png'
+check_image = {'job_confirm': 'job_confirm.png',  # 475, 144, 800, 338
+               'enter_battle': 'enter_battle.png',  # 475, 144, 800, 338
+               'leave_battle': 'leave_battle.png',  # 464， 246， 964， 273
+               'still_in_team': 'still_in_team.png',
+               'still_in_team2': 'still_in_team2.png',  # 9, 170, 179, 288
+               'bar_ready': 'bar_ready.png',
+               'dead_revial': 'dead_revial.png'  #  524, 189, 782, 227
                }
-if os.path.basename(__file__) == 'ptbt.py':
-    check_cord = {'level_check_box': (320, 320, 40, 40),
-                  'vs_image': (620, 40, 100, 50),
-                  'round_end': (600, 640, 100, 100),
-                  'dead_choose': (300, 600, 400, 200),
-                  'revival_c_key': (270, 650, 50, 50),
-                  'black_teeth_2':  (410, 680, 100, 100),
-                  'black_teeth_3': (470, 670, 100, 100),
-                  'rush_3': (370, 680, 100, 100),
-                  '2nd_pet_feature': (470, 670, 100, 100),
-                  '3rd_pet_feature': (410, 680, 100, 100),
-                  '1st_pet_feature': (470, 670, 100, 100),
-                  'black_teeth_buff': (900, 160, 300, 60)
-                  }
-elif os.path.basename(__file__) == 'ptbt_sur.py':
-    check_cord = {'level_check_box': (320, 320, 350, 350),
-                  'vs_image': (465, 35, 530, 75),
-                  'round_end': (380, 685, 450, 755),
-                  'dead_choose': (230, 690, 430, 750),
-                  'revival_c_key': (85, 660, 120, 700),
-                  'black_teeth_2': (270, 690, 330, 750),
-                  'black_teeth_3': (325, 685, 380, 750),
-                  'rush_3': (210, 690, 270, 750),
-                  '2nd_pet_feature': (325, 685, 380, 750),
-                  '3rd_pet_feature': (270, 690, 330, 750),
-                  '1st_pet_feature': (325, 685, 380, 750)
-                  }
-else:
-    check_cord = {'level_check_box': (320, 320, 40, 40),
-                  'vs_image': (620, 40, 100, 50),
-                  'round_end': (600, 640, 100, 100),
-                  'dead_choose': (300, 600, 400, 200),
-                  'revival_c_key': (270, 650, 50, 50),
-                  'black_teeth_2':  (410, 680, 100, 100),
-                  'black_teeth_3': (470, 670, 100, 100),
-                  '2nd_pet_feature': (470, 670, 100, 100),
-                  '2nd_pet_feature_beta': (470, 670, 100, 100),
-                  '3rd_pet_feature': (410, 680, 100, 100),
-                  '1st_pet_feature': (470, 670, 100, 100),
-                  'rush_cooling': (350, 670, 100, 100),
-                  'rush_ok': (350, 670, 100, 100),
-                  'bite_cooling': (470, 670, 100, 100),
-                  'black_teeth_buff': (900, 100, 300,220),
-                  '1st_dead_mark': (370, 580, 50, 50),
-                  '2nd_dead_mark': (560, 580, 50, 50),
-                  '3rd_dead_mark': (750, 580, 50, 50),
-                  'up_dead_icon1': (170, 35, 50, 50),
-                  'up_dead_icon2': (170, 78, 50, 50),
-                  'up_vacant_icon1': (170, 35, 50, 50),
-                  'up_vacant_icon2': (170, 78, 50, 50),
-                  'dead_icon_on_pet_menu1': (305, 240, 40, 40),
-                  'dead_icon_on_pet_menu2': (305, 365, 40, 40),
-                  'dead_icon_on_pet_menu3': (305, 490, 40, 40)
-                  }
 
-battle_action = {1: (2, 1, 3),
-                 2: (2, 1, 3),
-                 3: (3, 1, 2)
-                 }
 
-TIME_ADJ = 0.60
-# set wow window to up_left
+check_cord = {'job_confirm': (470, 140, 400, 250),
+              'enter_battle': (470, 140, 400, 250),
+              'leave_battle': (460, 240, 500, 40),
+              'still_in_team': (9, 170, 170, 110),
+              'still_in_team2': (9, 170, 170, 110),
+              'bar_ready': (0, 0),
+              'dead_revial': (524, 189, 360, 50)
+              }
+# ===============================================
+
 find_wow_window()
 
 # use ctrl as a start button
 print('press ctrl to start')
 engine.say('请按CONTROL键开始')
 engine.runAndWait()
-debug_voice = False
+debug_voice = True
 
 while not keyboard.is_pressed('ctrl'):
     pass
@@ -620,17 +524,10 @@ engine.say('程序开始！')
 engine.runAndWait()
 winsound.Beep(500, 300)
 
-# checking the baby level
-# baby_level = check_level()
-baby_level = 25
-# mainloop start
-last_revival_time = time.time()
-current_pet = 1
-is_pets_alive = {1: True,
-                 2: True,
-                 3: True}
 
-# while baby_level < 26:   # rematch auto up-leveling team
+# check if it is in a battle:
+# yes
+
 while datetime.now().hour != 4:  # end on 04:00 am
     time.sleep(random.randint(2000, 4000) / 1000)
     # if revival key is ready to do the revival after at least 5 minutes
@@ -646,7 +543,6 @@ while datetime.now().hour != 4:  # end on 04:00 am
     battle_loaded = False
 
     check_pet_alive()
-    key_2_sent('k')
 
     left_pets = 0
     for i in range(3):
@@ -659,10 +555,6 @@ while datetime.now().hour != 4:  # end on 04:00 am
         speech = '现有' + str(left_pets) + '个活的宠物'
         engine.say(speech)
         engine.runAndWait()
-    if left_pets == 2:
-        start_pets = 2
-    else:
-        start_pets = 3
 
     while not battle_loaded:
         ld_battle = load_battle('x')
@@ -728,10 +620,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
         print('current PET = ' + str(current_pet))
         if is_debuffed():
             time.sleep(3)
-            if is_it_found('rush_ok'):
-                if debug_voice:
-                    engine.say('可以冲锋')
-                    engine.runAndWait()
+            if not is_it_found('rush_cooling'):
                 key_2_sent(str(battle_action.get(current_pet)[1]))
                 sleep(12000 * TIME_ADJ, 13000 * TIME_ADJ)
                 result = check_for_attack_result()
@@ -744,11 +633,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
                         next_pet = 1
                     if is_pets_alive.get(next_pet):
                         current_pet = next_pet
-                        if start_pets == 2:
-                            sent_pet_key = current_pet -1
-                        else:
-                            sent_pet_key = current_pet
-                        key_2_sent(str(sent_pet_key))
+                        key_2_sent(str(current_pet))
                         sleep(500, 800)
                         logging.info('bb is dead, change to next one')
                         print('bb is dead, change to next one')
@@ -758,11 +643,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
                             next_pet = 1
                         if is_pets_alive.get(next_pet):
                             current_pet = next_pet
-                            if start_pets == 2:
-                                sent_pet_key = current_pet - 1
-                            else:
-                                sent_pet_key = current_pet
-                            key_2_sent(str(sent_pet_key))
+                            key_2_sent(str(current_pet))
                             sleep(500, 800)
                             logging.info('2 bbs are dead, change to the last one')
                             print('2 bbs are dead, change to the last one')
@@ -786,11 +667,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
                         next_pet = 1
                     if is_pets_alive.get(next_pet):
                         current_pet = next_pet
-                        if start_pets == 2:
-                            sent_pet_key = current_pet -1
-                        else:
-                            sent_pet_key = current_pet
-                        key_2_sent(str(sent_pet_key))
+                        key_2_sent(str(current_pet))
                         sleep(500, 800)
                         logging.info('change to next one')
                         print('change to next one')
@@ -800,11 +677,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
                             next_pet = 1
                         if is_pets_alive.get(next_pet):
                             current_pet = next_pet
-                            if start_pets == 2:
-                                sent_pet_key = current_pet - 1
-                            else:
-                                sent_pet_key = current_pet
-                            key_2_sent(str(sent_pet_key))
+                            key_2_sent(str(current_pet))
                             sleep(500, 800)
                             logging.info('change to the last one')
                             print('change to the last one')
@@ -833,16 +706,8 @@ while datetime.now().hour != 4:  # end on 04:00 am
                             battle_is_running = False
                             print('some pets counts running wrong!')
                     pass
-            elif not is_it_found('bite_cooling') or current_pet != 2:
-                if debug_voice:
-                    engine.say('不可冲锋')
-                    engine.runAndWait()
-                key_2_sent(str(battle_action.get(current_pet)[2]))
             else:
-                key_2_sent(str(battle_action.get(current_pet)[0]))
-                if debug_voice:
-                    engine.say('攻击技能全部冷却中')
-                    engine.runAndWait()
+                key_2_sent(str(battle_action.get(current_pet)[2]))
 
         else:
             if battle_action.get(current_pet) is not None:
@@ -858,11 +723,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
                         next_pet = 1
                     if is_pets_alive.get(next_pet):
                         current_pet = next_pet
-                        if start_pets == 2:
-                            sent_pet_key = current_pet -1
-                        else:
-                            sent_pet_key = current_pet
-                        key_2_sent(str(sent_pet_key))
+                        key_2_sent(str(current_pet))
                         sleep(500, 800)
                         logging.info('bb is dead, change to next one')
                         print('bb is dead, change to next one')
@@ -872,11 +733,7 @@ while datetime.now().hour != 4:  # end on 04:00 am
                             next_pet = 1
                         if is_pets_alive.get(next_pet):
                             current_pet = next_pet
-                            if start_pets == 2:
-                                sent_pet_key = current_pet - 1
-                            else:
-                                sent_pet_key = current_pet
-                            key_2_sent(str(sent_pet_key))
+                            key_2_sent(str(current_pet))
                             sleep(500, 800)
                             logging.info('2 bbs are dead, change to the last one')
                             print('2 bbs are dead, change to the last one')
