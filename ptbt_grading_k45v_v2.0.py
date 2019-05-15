@@ -80,7 +80,6 @@ def is_off_line():
     return found
 
 
-
 def kill_process(process_name, wd_name):
     for proc in psutil.process_iter():
         # check whether the process name matches
