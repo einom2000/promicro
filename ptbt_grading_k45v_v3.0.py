@@ -421,7 +421,7 @@ CONFI = 0.9
 
 
 # game parameters setup
-port = 'COM9'  # note I'm not using Mac OS-X
+port = 'COM9'  # com5 for kv45
 
 ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2)  # wait for arduino
