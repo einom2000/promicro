@@ -327,6 +327,7 @@ def key_2_sent(key):
 
 
 def check(is_forced=False):
+    global last_revival_time
     if is_forced or is_off_line() is not None:
         kill_process('Wow.exe', '魔兽世界')
         time.sleep(10)
@@ -342,6 +343,7 @@ def check(is_forced=False):
             key_2_sent('o')
             pass
         find_wow_window()
+        last_revival_time = time.time()
 
 def choose_next_pet():
     global current_pet, is_pets_alive, battle_is_running, start_pets
