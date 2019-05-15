@@ -343,6 +343,69 @@ def check(is_forced=False):
             pass
         find_wow_window()
 
+def choose_next_pet():
+    global current_pet, is_pets_alive, battle_is_running
+    next_pet = current_pet + 1
+    if next_pet > 3:
+        next_pet = 1
+    if is_pets_alive.get(next_pet):
+        current_pet = next_pet
+        key_2_sent(str(current_pet))
+        sleep(500, 800)
+        print('bb is dead, change to next one')
+    else:
+        next_pet += 1
+        if next_pet > 3:
+            next_pet = 1
+        if is_pets_alive.get(next_pet):
+            current_pet = next_pet
+            key_2_sent(current_pet)
+            sleep(500, 800)
+            logging.info('2 bbs are dead, change to the last one')
+            print('2 bbs are dead, change to the last one')
+        else:
+            set_all_dead()
+            battle_is_running = False
+            print('all bbs dead')
+
+
+def after_result(round_result, after_charge=False):
+    global left_pets, is_pets_alive, current_pet, battle_is_running, only_last_one
+
+    #  return value:
+    #  0: dead and change pets
+    #  1: normal end
+    # -1: battle over
+    # 99: round end, last pet
+    
+    if round_result == 0:
+        is_pets_alive[current_pet] = False
+        left_pets -= 1
+        choose_next_pet()
+
+    # battle ended
+    elif result == -1:
+        current_pet = -1
+        print('battle is ended!')
+        battle_is_running = False
+
+    elif result == 1 and not after_charge:
+        pass
+
+    elif result == 1 and after_charge and not only_last_one:
+        if left_pets != 1:
+            key_2_sent('4')
+            sleep(1000 * TIME_ADJ, 2000 * TIME_ADJ)
+        # now in the pet picking menu
+        next_pet = current_pet + 1
+        choose_next_pet()
+
+    elif result == 99:
+        only_last_one = True
+        current_pet = pet_check()
+        left_pets = 1
+
+    return 
 
 RELOAD_SUCCESS = (1036, 709, 180, 50)
 OFF_LINE_LOGO_REGION = (10, 30, 250, 150)
@@ -479,6 +542,9 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
     left_pets, current_pet = check_pet_alive()
     # jump
     key_2_sent('k')
+    print(is_pets_alive)
+    if is_pets_alive.get(1) is False and is_pets_alive.get(2) is False and is_pets_alive.get(3) is False:  # all dead
+        revival()
 
     # before battle confirm there are at least 2 pets alive and set the first pet to the active one
     if left_pets <= 1:
@@ -534,8 +600,7 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
     sleep(8000 * TIME_ADJ, 9000 * TIME_ADJ)
 
     battle_time = time.time()
-
-# ====================================================================================================
+    only_last_one = False
 
     while battle_is_running:
 
@@ -559,103 +624,8 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
                 #  1: normal end
                 # -1: battle over
                 # 99: round end, last pet
-                if result == 0:
-                    is_pets_alive[current_pet] = False
-                    left_pets -= 1
-                    next_pet = current_pet + 1
-                    if next_pet > 3:
-                        next_pet = 1
-                    if is_pets_alive.get(next_pet):
-                        current_pet = next_pet
-                        if start_pets == 2:
-                            sent_pet_key = current_pet -1
-                        else:
-                            sent_pet_key = current_pet
-                        key_2_sent(str(sent_pet_key))
-                        sleep(500, 800)
-                        logging.info('bb is dead, change to next one')
-                        print('bb is dead, change to next one')
-                    else:
-                        next_pet += 1
-                        if next_pet > 3:
-                            next_pet = 1
-                        if is_pets_alive.get(next_pet):
-                            current_pet = next_pet
-                            if start_pets == 2:
-                                sent_pet_key = current_pet - 1
-                            else:
-                                sent_pet_key = current_pet
-                            key_2_sent(str(sent_pet_key))
-                            sleep(500, 800)
-                            logging.info('2 bbs are dead, change to the last one')
-                            print('2 bbs are dead, change to the last one')
-                        else:
-                            set_all_dead()
-                            battle_is_running = False
-                            print('all bbs dead')
                 # battle ended
-                elif result == -1:
-                    current_pet = -1
-                    print('battle is ended!')
-                    battle_is_running = False
-                # normal ending round
-                elif result == 1:
-                    if left_pets != 1:
-                        key_2_sent('4')
-                        sleep(5000 * TIME_ADJ, 6000 * TIME_ADJ)
-                    # now in the pet picking menu
-                    next_pet = current_pet + 1
-                    if next_pet > 3:
-                        next_pet = 1
-                    if is_pets_alive.get(next_pet):
-                        current_pet = next_pet
-                        if start_pets == 2:
-                            sent_pet_key = current_pet -1
-                        else:
-                            sent_pet_key = current_pet
-                        key_2_sent(str(sent_pet_key))
-                        sleep(500, 800)
-                        logging.info('change to next one')
-                        print('change to next one')
-                    else:
-                        next_pet += 1
-                        if next_pet > 3:
-                            next_pet = 1
-                        if is_pets_alive.get(next_pet):
-                            current_pet = next_pet
-                            if start_pets == 2:
-                                sent_pet_key = current_pet - 1
-                            else:
-                                sent_pet_key = current_pet
-                            key_2_sent(str(sent_pet_key))
-                            sleep(500, 800)
-                            logging.info('change to the last one')
-                            print('change to the last one')
-                        else:
-                            sleep(500, 800)
-                            key_2_sent('6')
-                            set_all_dead()
-                            logging.info('the other 2 are dead, fight with this one again')
-                            print('the other 2 are dead, fight with this one again')
-
-                elif result == 99:
-                    is_pets_alive[current_pet] = False
-                    left_pets -= 1
-                    pt = pet_check()
-                    if pt != 0:
-                        current_pet = pet_check()
-                    else:
-                        gt = 0
-                        for i in range(3):
-                            if is_pets_alive.get(i + 1) is True:
-                                current_pet = i + 1
-                                gt += 1
-                        if gt != 1:
-                            # something wrong set all pet dead
-                            set_all_dead()
-                            battle_is_running = False
-                            print('some pets counts running wrong!')
-                    pass
+                after_result(result, True)
             elif not is_it_found('bite_cooling') or current_pet != 2:
                 if debug_voice:
                     engine.say('不可冲锋')
@@ -677,46 +647,7 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
                 #  1: normal end
                 # -1: battle over
                 # 99: round end, last pet
-                if result == 0:
-                    is_pets_alive[current_pet] = False
-                    left_pets -= 1
-                    next_pet = current_pet + 1
-                    if next_pet > 3:
-                        next_pet = 1
-                    if is_pets_alive.get(next_pet):
-                        current_pet = next_pet
-                        key_2_sent(str(current_pet))
-                        sleep(500, 800)
-                        print('bb is dead, change to next one')
-                    else:
-                        next_pet += 1
-                        if next_pet > 3:
-                            next_pet = 1
-                        if is_pets_alive.get(next_pet):
-                            current_pet = next_pet
-                            key_2_sent(current_pet)
-                            sleep(500, 800)
-                            logging.info('2 bbs are dead, change to the last one')
-                            print('2 bbs are dead, change to the last one')
-                        else:
-                            set_all_dead()
-                            battle_is_running = False
-                            print('all bbs dead')
-
-                # battle ended
-                elif result == -1:
-                    current_pet = -1
-                    print('battle is ended!')
-                    battle_is_running = False
-
-                elif result == 1:
-                    pass
-
-                elif result == 99:
-                    set_all_dead()
-                    pt = pet_check()
-                    left_pets = 1
-                pass
+                after_result(result)
 
         if time.time() - battle_time >= 460:
             logging.info('battle time too long, let us yielding!')
@@ -725,16 +656,12 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
 
         if current_pet == -1:
             battle_is_running = False
-            current_pet = 1
             if is_it_found('vs_image'):
                 key_2_sent('6')
                 sleep(1200 , 1600 )
                 key_2_sent('v')
                 sleep(14000 * TIME_ADJ, 16000 * TIME_ADJ)
-        print(is_pets_alive)
 
-    if is_pets_alive.get(1) is False and is_pets_alive.get(2) is False and is_pets_alive.get(3) is False:  # all dead
-        revival()
 
 
 
