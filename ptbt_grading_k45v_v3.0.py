@@ -55,7 +55,7 @@ logging.info('Program starts!')
 def is_off_line():
     start_t = time.time()
     found = None
-    while time.time() - start_t <= 6:
+    while time.time() - start_t <= 10:
         found = pyautogui.locateCenterOnScreen('off_line_logo.png', region=OFF_LINE_LOGO_REGION,
                                                grayscale=False, confidence=0.9)
         if found is not None:
@@ -228,7 +228,8 @@ def load_battle(enemy):
 
 
 def find_wow_window():
-    while True:
+    t = time.time()
+    while time.time() - t <= 10:
         hwndwow = win32gui.FindWindow(None, '魔兽世界')
         if hwndwow != 0:
             hwndwowrec = win32gui.GetWindowRect(hwndwow)
@@ -413,12 +414,10 @@ while True:
     elif keyboard.is_pressed('b'):
         # set wow window to up_left
         find_wow_window()
+        engine.say('请按CONTROL键开始')
+        engine.runAndWait()
         break
 
-# use ctrl as a start button
-print('press ctrl to start')
-engine.say('请按CONTROL键开始')
-engine.runAndWait()
 debug_voice = False
 
 # ====================================================================================================
