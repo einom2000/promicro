@@ -344,29 +344,40 @@ def check(is_forced=False):
         find_wow_window()
 
 def choose_next_pet():
-    global current_pet, is_pets_alive, battle_is_running
-    next_pet = current_pet + 1
-    if next_pet > 3:
-        next_pet = 1
-    if is_pets_alive.get(next_pet):
-        current_pet = next_pet
-        key_2_sent(str(current_pet))
-        sleep(500, 800)
-        print('bb is dead, change to next one')
-    else:
-        next_pet += 1
+    global current_pet, is_pets_alive, battle_is_running, start_pets
+    if start_pets == 3:
+        next_pet = current_pet + 1
         if next_pet > 3:
             next_pet = 1
         if is_pets_alive.get(next_pet):
             current_pet = next_pet
-            key_2_sent(current_pet)
+            key_2_sent(str(current_pet))
             sleep(500, 800)
-            logging.info('2 bbs are dead, change to the last one')
-            print('2 bbs are dead, change to the last one')
+            print('bb is dead, change to next one')
         else:
-            set_all_dead()
-            battle_is_running = False
-            print('all bbs dead')
+            next_pet += 1
+            if next_pet > 3:
+                next_pet = 1
+            if is_pets_alive.get(next_pet):
+                current_pet = next_pet
+                key_2_sent(current_pet)
+                sleep(500, 800)
+                logging.info('2 bbs are dead, change to the last one')
+                print('2 bbs are dead, change to the last one')
+            else:
+                set_all_dead()
+                battle_is_running = False
+                print('all bbs dead')
+        return
+    elif start_pets == 2:
+        if current_pet == 1 or (current_pet == 2 and is_pets_alive.get(3)):
+            key_2_sent('2')
+        elif current_pet == 3 or (current_pet == 2 and is_pets_alive.get(1)):
+            key_2_sent('1')
+        sleep(500, 800)
+        current_pet = pet_check()
+
+
 
 
 def after_result(round_result, after_charge=False):
