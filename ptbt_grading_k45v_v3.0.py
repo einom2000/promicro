@@ -31,6 +31,9 @@ from bt_log_in import *
 # x search the the mob
 # c revival key
 # v for confirmation button   /click StaticPopup1Button1
+# m for open the chat
+# (key_in == '>') // paste ctrl-v
+# (key_in == 'o') // do enter
 # level of the first baby (329,328)(340,340)
 # vs image (627, 44)(668, 69)
 # round_end image (602, 646) (698, 677)
@@ -327,7 +330,7 @@ def key_2_sent(key):
 
 
 def check(is_forced=False):
-    global last_revival_time
+    global last_revival_time, just_relogged
     if is_forced or is_off_line() is not None:
         kill_process('Wow.exe', '魔兽世界')
         time.sleep(10)
@@ -343,7 +346,9 @@ def check(is_forced=False):
             key_2_sent('o')
             pass
         find_wow_window()
+        just_relogged = True
         last_revival_time = time.time()
+
 
 def choose_next_pet():
     global current_pet, is_pets_alive, battle_is_running, start_pets
@@ -378,8 +383,6 @@ def choose_next_pet():
             key_2_sent('1')
         sleep(500, 800)
         current_pet = pet_check()
-
-
 
 
 def after_result(round_result, after_charge=False):
@@ -434,7 +437,7 @@ CONFI = 0.9
 
 
 # game parameters setup
-port = 'COM9'  # com5 for kv45
+port = 'COM5'  # com5 for kv45
 
 ard = serial.Serial(port, 9600, timeout=5)
 time.sleep(2)  # wait for arduino
@@ -504,6 +507,20 @@ battle_action = {1: (2, 1, 3),
 is_pets_alive = {1: True,
                  2: True,
                  3: True}
+gossip = ('老掉线，是网络的问题码？',
+          '破网',
+          '还让人玩不？',
+          '还能好好打宠物对战码？',
+          '哪个手键的？'
+          '马上，工会还没人上线',
+          '我这是怎么了？',
+          '有掉了。。呜呜呜',
+          '这能不能让人好好看电影了？',
+          '这。。。尼玛',
+          '哪个，和我什么给关系',
+          '升个级，难呀',
+          '我已经很努力了额，还要对付这些破网' )
+gossip_length = len(gossip)
 
 # ======================== script arguments =================================
 TIME_ADJ = 0.60
@@ -537,6 +554,7 @@ winsound.Beep(500, 300)
 
 # mainloop start
 last_revival_time = time.time()
+just_relogged = False
 
 while datetime.now().hour != END_TIME:  # end on 04:00 am
     sleep(2000 * TIME_ADJ, 4000 * TIME_ADJ)
@@ -550,6 +568,18 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
         sleep(500, 900)
         last_revival_time = time.time()
 
+    # after re-logged in say something
+
+    if just_relogged:
+        #should say something via m
+        key_2_sent('m')
+        pyperclip.copy(gossip[random.randrange(gossip_length)])
+        sleep(400, 600)
+        key_2_sent('>')
+        sleep(400, 600)
+        key_2_sent('o')
+        sleep(400, 600)
+        pass
     # loading battle
     battle_loaded = False
     left_pets, current_pet = check_pet_alive()
@@ -674,6 +704,7 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
                 sleep(1200 , 1600 )
                 key_2_sent('v')
                 sleep(14000 * TIME_ADJ, 16000 * TIME_ADJ)
+
 
 
 
