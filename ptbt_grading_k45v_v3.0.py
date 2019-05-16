@@ -286,6 +286,8 @@ def set_all_dead():
 def revival():
     global is_pets_alive, last_revival_time, current_pet, left_pets
     k = 1
+    start_warting_time = time.time()
+    stop_revival = False
     while not is_it_found('revival_c_key'):
         if debug_voice:
             engine.say('等待复活')
@@ -295,18 +297,29 @@ def revival():
         k += 1
         sleep(500, 800)
         check()
-    key_2_sent('c')
-    # jump
-    key_2_sent('k')
-    is_pets_alive = {1: True,
-                     2: True,
-                     3: True}
-    left_pets = 3
-    current_pet = 1
-    engine.say('全体复活')
-    engine.runAndWait()
-    sleep(1000, 2000)
-    last_revival_time = time.time()
+        if time.time() - start_warting_time >= 25:
+            key_2_sent('k')
+            sleep(1000, 1200)
+            left_pets, current_pet = check_pet_alive()
+            if left_pets >= 2:
+                stop_revival = True
+                break
+    if not stop_revival:
+        key_2_sent('c')
+        # jump
+        key_2_sent('k')
+        is_pets_alive = {1: True,
+                         2: True,
+                         3: True}
+        left_pets = 3
+        current_pet = 1
+        engine.say('全体复活')
+        engine.runAndWait()
+        sleep(1000, 2000)
+        last_revival_time = time.time()
+    else:
+        engine.say('停止等等复活，返回战斗')
+        engine.runAndWait()
 
 
 def key_2_sent(key):
@@ -560,10 +573,7 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
     sleep(2000 * TIME_ADJ, 4000 * TIME_ADJ)
     # if revival key is ready to do the revival after at least 5 minutes
     if time.time() - last_revival_time >= 480:
-        while not is_it_found('revival_c_key'): # not all dead but time is ok for it
-            # should I jump every one miniute?
-            check()
-            pass
+        revival()
         key_2_sent('c')
         sleep(500, 900)
         last_revival_time = time.time()
@@ -631,9 +641,7 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
                             logging.info('all dead! sleep ' +
                                          str(sleep_time) + ' seconds to revival.')
                             time.sleep(sleep_time)
-                        while not is_it_found('revival_c_key'):
-                            check()
-                            pass
+                        revival()
                         key_2_sent('c')
                         sleep(500, 900)
 
