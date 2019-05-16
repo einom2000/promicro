@@ -482,7 +482,8 @@ check_image = {'level23': 'level23.png',
                'dead_icon_on_pet_menu3': 'dead_icon_on_pet_menu.png',
                'rush_cooling': 'rush_cooling.png',
                'rush_ok': 'rush_ok.png',
-               'bite_cooling': 'bite_cooling.png'
+               'bite_cooling': 'bite_cooling.png',
+               'faint_icon': 'faint_icon.png'
                }
 
 check_cord = {'level_check_box': (320, 320, 40, 40),
@@ -509,7 +510,8 @@ check_cord = {'level_check_box': (320, 320, 40, 40),
               'up_vacant_icon2': (170, 78, 50, 50),
               'dead_icon_on_pet_menu1': (305, 240, 40, 40),
               'dead_icon_on_pet_menu2': (305, 365, 40, 40),
-              'dead_icon_on_pet_menu3': (305, 490, 40, 40)
+              'dead_icon_on_pet_menu3': (305, 490, 40, 40),
+              'faint_icon': (100, 100, 100, 100)
               }
 
 battle_action = {1: (2, 1, 3),
@@ -660,7 +662,15 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
         if pt != 0:
             current_pet = pt
         print('current PET = ' + str(current_pet))
-        if is_debuffed():
+        faint = False
+        if is_it_found('faint_icon'):
+            faint = True
+            key_2_sent('=')
+            sleep(4000 * TIME_ADJ, 6000 * TIME_ADJ)
+            result = check_for_attack_result()
+            after_result(result)
+
+        if is_debuffed() and not faint:
             sleep(2000 * TIME_ADJ, 3000 * TIME_ADJ)
             if is_it_found('rush_ok'):
                 if debug_voice:
@@ -687,7 +697,7 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
                     engine.say('攻击技能全部冷却中')
                     engine.runAndWait()
 
-        else:
+        elif not faint:
             if battle_action.get(current_pet) is not None:
                 key_2_sent(str(battle_action.get(current_pet)[0]))
                 sleep(4000 * TIME_ADJ, 6000 * TIME_ADJ)
