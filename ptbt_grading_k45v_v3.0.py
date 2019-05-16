@@ -640,7 +640,6 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
                         if sleep_time >= 10:
                             logging.info('all dead! sleep ' +
                                          str(sleep_time) + ' seconds to revival.')
-                            time.sleep(sleep_time)
                         revival()
                         key_2_sent('c')
                         sleep(500, 900)
