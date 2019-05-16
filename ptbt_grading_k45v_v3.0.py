@@ -98,8 +98,8 @@ def pet_check():
 
 def check_pet_alive():
     global is_pets_alive
-    sleep(2000 * TIME_ADJ, 3000 * TIME_ADJ)
     key_2_sent('p')
+    sleep(4000 * TIME_ADJ, 5000 * TIME_ADJ)
     curr_pet = 0
     if pyautogui.locateOnScreen(check_image.get('dead_icon_on_pet_menu1'),
                                 region=check_cord.get('dead_icon_on_pet_menu1'),
@@ -127,7 +127,7 @@ def check_pet_alive():
         is_pets_alive[3] = True
         if curr_pet == 0:
             curr_pet = 3
-    time.sleep(random.randint(1000, 2000) / 1000)
+    sleep(1000 * TIME_ADJ, 2000 * TIME_ADJ)
     key_2_sent('p')
     print('pet check: = ', end='')
     print(is_pets_alive)
