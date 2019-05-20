@@ -591,6 +591,7 @@ while datetime.now().hour != END_TIME:  # end on 04:00 am
         sleep(400, 600)
         key_2_sent('o')
         sleep(400, 600)
+        just_relogged = False
         pass
     # loading battle
     battle_loaded = False

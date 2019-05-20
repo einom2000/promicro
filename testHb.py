@@ -35,33 +35,35 @@ def key_2_sent(key):
     return
 
 
-# print(datetime.now().hour)
-port = 'COM9'  # com5 for kv45
-
-ard = serial.Serial(port, 9600, timeout=5)
-time.sleep(2)  # wait for arduino
-gossip = ('一一一一一一一一',
-          '二恶热热热热热热热',
-          '四恩凯利金融联考',
-          '三三三',
-          '呜呜呜'
-          '六六六',
-          '七七七',
-          '八八八',
-          '九九九',
-          '是是是是',
-          '上课就拉开',
-          '可哎呀啊',
-          '二二二二二二二二二' )
-gossip_length = len(gossip)
+# # print(datetime.now().hour)
+# port = 'COM9'  # com5 for kv45
+#
+# ard = serial.Serial(port, 9600, timeout=5)
+# time.sleep(2)  # wait for arduino
+# gossip = ('一一一一一一一一',
+#           '二恶热热热热热热热',
+#           '四恩凯利金融联考',
+#           '三三三',
+#           '呜呜呜'
+#           '六六六',
+#           '七七七',
+#           '八八八',
+#           '九九九',
+#           '是是是是',
+#           '上课就拉开',
+#           '可哎呀啊',
+#           '二二二二二二二二二' )
+# gossip_length = len(gossip)
 while True:
-    if keyboard.is_pressed(' '):
-        key_2_sent('m')
-        pyperclip.copy(gossip[random.randrange(gossip_length)])
-        sleep(400, 600)
-        key_2_sent('>')
-        time.sleep(2)
-        key_2_sent('o')
+        if keyboard.is_pressed(' '):
+            print(pyautogui.position())
+            time.sleep(3)
+    #     key_2_sent('m')
+    #     pyperclip.copy(gossip[random.randrange(gossip_length)])
+    #     sleep(400, 600)
+    #     key_2_sent('>')
+    #     time.sleep(2)
+    #     key_2_sent('o')
 
 # # left_pets =3
 # print('now there are %d pets left.' % left_pets)
