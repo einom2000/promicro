@@ -405,7 +405,7 @@ def after_result(round_result, after_charge=False):
     #  0: dead and change pets
     #  1: normal end
     # -1: battle over
-    # 99: round end, last pet
+    # 99: round end, last pet3
     
     if round_result == 0:
         is_pets_alive[current_pet] = False
